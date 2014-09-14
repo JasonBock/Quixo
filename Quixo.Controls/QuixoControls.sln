@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuixoControls", "QuixoControls.csproj", "{506B921A-F277-4B24-9EE3-98203696BC03}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuixoControlTester", "..\QuixoControlTester\QuixoControlTester.csproj", "{52C177B6-83DB-412D-A709-04F0EEBA8DE5}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{506B921A-F277-4B24-9EE3-98203696BC03}.Debug.ActiveCfg = Debug|.NET
+		{506B921A-F277-4B24-9EE3-98203696BC03}.Debug.Build.0 = Debug|.NET
+		{506B921A-F277-4B24-9EE3-98203696BC03}.Release.ActiveCfg = Release|.NET
+		{506B921A-F277-4B24-9EE3-98203696BC03}.Release.Build.0 = Release|.NET
+		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Debug.ActiveCfg = Debug|.NET
+		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Debug.Build.0 = Debug|.NET
+		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Release.ActiveCfg = Release|.NET
+		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

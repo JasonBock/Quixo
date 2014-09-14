@@ -1,0 +1,30 @@
+1.0 Changes
+
+The UI model has to change from using internal methods to events - i.e. when a piece is clicked make it raise the Selected event ONLY IF the board has designated it to be IsSelectable.
+
+Create a new algorithm that measures groups in a row. See my notes in my notebook for a description of the ranking algorithm and how this will work. Once this is done, run a series of tests, pitting it against the current "smart" algorithm.
+
+Need to slow down the computer move generation and/or animate it somehow so the user can see what it looks like.
+
+The computer moves must be made using BackgroundWorker and it must be cancellable. 
+
+All configuration changes should go to IsolatedStorage.
+
+
+2.0 Changes
+
+Need logging, damnit!
+
+Show the winning row(s)
+
+Put the coordinates around the outside of the board.
+
+Allow the user to change the colors of the board (make sure that each color choice is different; otherwise you'd get a blank board).
+
+Use the fonts of the control to make the X and O, but scale it.
+
+Make a Quixo piece icon for the forms.
+
+Make a "genius" computer engine via genetic algorithms.
+
+Send the history to the printer
