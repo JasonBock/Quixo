@@ -10,10 +10,7 @@ namespace Quixo.Controls
 		private TextBox debugText = null;
 
 		public DebugTextWriter(TextBox debugText)
-			: base()
-		{
-			this.debugText = debugText;
-		}
+			: base() => this.debugText = debugText;
 
 		public override void WriteLine(string value)
 		{
@@ -23,12 +20,6 @@ namespace Quixo.Controls
 			this.debugText.ScrollToCaret();
 		}
 
-		public override Encoding Encoding
-		{
-			get
-			{
-				return Encoding.Unicode;
-			}
-		}
+		public override Encoding Encoding => Encoding.Unicode;
 	}
 }

@@ -87,22 +87,19 @@ namespace Quixo.Controls
 			this.Controls.Add(this.rulesLabel);
 			this.Controls.Add(this.rulesLinkLabel);
 			this.Controls.Add(this.versionLabel);
-			this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Font = new Font("Tahoma", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			this.FormBorderStyle = FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "AboutDialog";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.StartPosition = FormStartPosition.CenterParent;
 			this.Text = "About Quixo .NET";
 			this.ResumeLayout(false);
 
 		}
 		#endregion
 
-		private void OnOkButtonClick(object sender, System.EventArgs e)
-		{
-			this.Close();
-		}
+		private void OnOkButtonClick(object sender, System.EventArgs e) => this.Close();
 
 		private void OnRulesLinkLabelLinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
 		{

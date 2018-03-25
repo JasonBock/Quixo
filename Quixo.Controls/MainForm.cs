@@ -63,9 +63,9 @@ namespace Quixo.Controls
 		{
 			if (disposing)
 			{
-				if (components != null)
+				if (this.components != null)
 				{
-					components.Dispose();
+					this.components.Dispose();
 				}
 			}
 			base.Dispose(disposing);
@@ -444,26 +444,27 @@ namespace Quixo.Controls
 
 		private void OnAboutMenuClick(object sender, System.EventArgs e)
 		{
-			AboutDialog about = new AboutDialog();
+			var about = new AboutDialog();
 			about.ShowDialog(this);
 		}
 
 		private void OnFileOpenMenuItemClick(object sender, System.EventArgs e)
 		{
-			OpenFileDialog openDialog = new OpenFileDialog();
-
-			openDialog.Filter = "Quixo files (*.quixo)|*.quixo";
-			openDialog.FilterIndex = 1;
-			openDialog.RestoreDirectory = true;
+			var openDialog = new OpenFileDialog
+			{
+				Filter = "Quixo files (*.quixo)|*.quixo",
+				FilterIndex = 1,
+				RestoreDirectory = true
+			};
 
 			if (openDialog.ShowDialog() == DialogResult.OK)
 			{
 				try
 				{
-					using (Stream quixoStream = openDialog.OpenFile())
+					using (var quixoStream = openDialog.OpenFile())
 					{
 						IFormatter formatter = new QF.BoardFormatter();
-						QF.Board board = (QF.Board)formatter.Deserialize(quixoStream);
+						var board = (QF.Board)formatter.Deserialize(quixoStream);
 						this.board.Reset(board, null, null);
 						this.debugTextBox.Text = string.Empty;
 						this.UpdateGameStatus();
@@ -476,17 +477,18 @@ namespace Quixo.Controls
 
 		private void OnFileSaveMenuItemClick(object sender, System.EventArgs e)
 		{
-			SaveFileDialog saveDialog = new SaveFileDialog();
-
-			saveDialog.Filter = "Quixo files (*.quixo)|*.quixo";
-			saveDialog.FilterIndex = 1;
-			saveDialog.RestoreDirectory = true;
+			var saveDialog = new SaveFileDialog
+			{
+				Filter = "Quixo files (*.quixo)|*.quixo",
+				FilterIndex = 1,
+				RestoreDirectory = true
+			};
 
 			if (saveDialog.ShowDialog() == DialogResult.OK)
 			{
 				try
 				{
-					using (Stream quixoStream = saveDialog.OpenFile())
+					using (var quixoStream = saveDialog.OpenFile())
 					{
 						IFormatter formatter = new QF.BoardFormatter();
 						formatter.Serialize(quixoStream, this.board.InternalBoard);
@@ -499,9 +501,11 @@ namespace Quixo.Controls
 
 		private void OnGameResetMenuItemClick(object sender, System.EventArgs e)
 		{
-			ResetOptions options = new ResetOptions();
-			options.DebugText = this.debugTextBox;
-			DialogResult result = options.ShowDialog(this);
+			var options = new ResetOptions
+			{
+				DebugText = this.debugTextBox
+			};
+			var result = options.ShowDialog(this);
 
 			if (result == DialogResult.OK)
 			{
@@ -522,10 +526,7 @@ namespace Quixo.Controls
 			}
 		}
 
-		private void OnMoveMade(object sender, EventArgs args)
-		{
-			this.UpdateGameStatus();
-		}
+		private void OnMoveMade(object sender, EventArgs args) => this.UpdateGameStatus();
 
 		private void UpdateGameStatus()
 		{
@@ -539,10 +540,10 @@ namespace Quixo.Controls
 
 			if (this.board.InternalBoard.Moves.Count > 0)
 			{
-				for (int i = 0; i < this.board.InternalBoard.Moves.Count; i++)
+				for (var i = 0; i < this.board.InternalBoard.Moves.Count; i++)
 				{
-					QF.Move move = this.board.InternalBoard.Moves[i];
-					ListViewItem moveItem = new ListViewItem(
+					var move = this.board.InternalBoard.Moves[i];
+					var moveItem = new ListViewItem(
 						 new string[] { (i + 1).ToString(), move.Player.ToString(), move.Source.ToString(), move.Destination.ToString() });
 					this.moveHistoryList.Items.Add(moveItem);
 				}

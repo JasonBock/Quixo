@@ -10,18 +10,10 @@ namespace Quixo.Engine
 	{
 		protected TextWriter debugWriter = null;
 
-		public BaseEngine() : base() { }
+		protected BaseEngine() : base() { }
 
 		public BaseEngine(TextWriter debugWriter)
-			: this()
-		{
-			if (debugWriter == null)
-			{
-				throw new ArgumentNullException("debugWriter");
-			}
-
-			this.debugWriter = debugWriter;
-		}
+			: this() => this.debugWriter = debugWriter ?? throw new ArgumentNullException(nameof(debugWriter));
 
 		public abstract Move GenerateMove(Board board, ManualResetEvent cancel);
 	}

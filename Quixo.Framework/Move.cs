@@ -25,33 +25,12 @@ namespace Quixo.Framework
 			this.destination = destination;
 		}
 
-		public string Print()
-		{
-			return string.Format(MoveFormat, this.player, this.source, this.destination);
-		}
+		public string Print() => string.Format(MoveFormat, this.player, this.source, this.destination);
 
-		public Point Destination
-		{
-			get
-			{
-				return this.destination;
-			}
-		}
+		public Point Destination => this.destination;
 
-		public Player Player
-		{
-			get
-			{
-				return this.player;
-			}
-		}
+		public Player Player => this.player;
 
-		public Point Source
-		{
-			get
-			{
-				return this.source;
-			}
-		}
+		public Point Source => this.source;
 	}
 }

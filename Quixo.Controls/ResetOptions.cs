@@ -16,12 +16,12 @@ namespace Quixo.Controls
 		private IEngine playerO = null;
 		private TextBox debugText = null;
 
-		private System.Windows.Forms.Label playerXLabel;
-		private System.Windows.Forms.ListBox playerXList;
-		private System.Windows.Forms.Button okButton;
-		private System.Windows.Forms.Button cancelButton;
-		private System.Windows.Forms.ListBox playerOList;
-		private System.Windows.Forms.Label playerOLabel;
+		private Label playerXLabel;
+		private ListBox playerXList;
+		private Button okButton;
+		private Button cancelButton;
+		private ListBox playerOList;
+		private Label playerOLabel;
 		private System.ComponentModel.Container components = null;
 
 		public ResetOptions()
@@ -34,9 +34,9 @@ namespace Quixo.Controls
 		{
 			if (disposing)
 			{
-				if (components != null)
+				if (this.components != null)
 				{
-					components.Dispose();
+					this.components.Dispose();
 				}
 			}
 			base.Dispose(disposing);
@@ -49,12 +49,12 @@ namespace Quixo.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.playerXLabel = new System.Windows.Forms.Label();
-			this.playerXList = new System.Windows.Forms.ListBox();
-			this.playerOList = new System.Windows.Forms.ListBox();
-			this.playerOLabel = new System.Windows.Forms.Label();
-			this.okButton = new System.Windows.Forms.Button();
-			this.cancelButton = new System.Windows.Forms.Button();
+			this.playerXLabel = new Label();
+			this.playerXList = new ListBox();
+			this.playerOList = new ListBox();
+			this.playerOLabel = new Label();
+			this.okButton = new Button();
+			this.cancelButton = new Button();
 			this.SuspendLayout();
 			// 
 			// playerXLabel
@@ -120,7 +120,7 @@ namespace Quixo.Controls
 			this.Controls.Add(this.playerOLabel);
 			this.Controls.Add(this.playerXList);
 			this.Controls.Add(this.playerXLabel);
-			this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(0)));
+			this.Font = new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -140,16 +140,11 @@ namespace Quixo.Controls
 			this.playerXList.Items.Add(Human);
 			this.playerOList.Items.Add(Human);
 
-			this.engines = ConfigurationManager.GetSection("QuixoEngines") as ArrayList;
+			this.playerXList.Items.Add("Quixo.Engine.RandomEngine");
+			this.playerOList.Items.Add("Quixo.Engine.RandomEngine");
 
-			if (this.engines != null)
-			{
-				foreach (Type engineType in this.engines)
-				{
-					this.playerXList.Items.Add(engineType.FullName);
-					this.playerOList.Items.Add(engineType.FullName);
-				}
-			}
+			this.playerXList.Items.Add("Quixo.SmartEngine.AlphaBetaPruningEngine");
+			this.playerOList.Items.Add("Quixo.SmartEngine.AlphaBetaPruningEngine");
 		}
 
 		private void OnCancelButtonClick(object sender, System.EventArgs e)
@@ -162,8 +157,8 @@ namespace Quixo.Controls
 		{
 			if (this.playerXList.SelectedIndex >= 0 && this.playerOList.SelectedIndex >= 0)
 			{
-				string playerXDescription = this.playerXList.SelectedItem as string;
-				string playerODescription = this.playerOList.SelectedItem as string;
+				var playerXDescription = this.playerXList.SelectedItem as string;
+				var playerODescription = this.playerOList.SelectedItem as string;
 
 				if (playerXDescription.Equals(Human) == false && playerODescription.Equals(Human) == false)
 				{
@@ -188,32 +183,14 @@ namespace Quixo.Controls
 			}
 		}
 
-		public IEngine PlayerO
-		{
-			get
-			{
-				return this.playerO;
-			}
-		}
+		public IEngine PlayerO => this.playerO;
 
-		public IEngine PlayerX
-		{
-			get
-			{
-				return this.playerX;
-			}
-		}
+		public IEngine PlayerX => this.playerX;
 
 		internal TextBox DebugText
 		{
-			get
-			{
-				return this.debugText;
-			}
-			set
-			{
-				this.debugText = value;
-			}
+			get => this.debugText;
+			set => this.debugText = value;
 		}
 	}
 }

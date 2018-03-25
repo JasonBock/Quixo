@@ -1,12 +1,9 @@
 using Quixo.Engine;
 using Quixo.Framework;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Xml;
-using System.Xml.XPath;
 
 namespace Quixo.SmartEngine
 {
@@ -18,13 +15,9 @@ namespace Quixo.SmartEngine
 		private const int WinningLine = int.MaxValue;
 
 		// TODO (4/15/2005) Need a way to clean out old debug files.
-		public AlphaBetaPruningEngine() : base()
-		{
-		}
+		public AlphaBetaPruningEngine() : base() { }
 
-		public AlphaBetaPruningEngine(TextWriter debugWriter) : base(debugWriter)
-		{
-		}
+		public AlphaBetaPruningEngine(TextWriter debugWriter) : base(debugWriter) { }
 
 		public override Move GenerateMove(Board board, ManualResetEvent cancel)
 		{
@@ -36,13 +29,13 @@ namespace Quixo.SmartEngine
 			movesNode = moveDocument.CreateElement("PotentialMoves");
 			moveDocument.AppendChild(movesNode);
 
-			int bestValue = int.MinValue;
-			int possibleBestValue = int.MinValue;
+			var bestValue = int.MinValue;
+			var possibleBestValue = int.MinValue;
 			Move generatedMove = null;
 
-			foreach(Point source in board.GetValidSourcePieces())
+			foreach(var source in board.GetValidSourcePieces())
 			{
-				foreach(Point destination in board.GetValidDestinationPieces(source))
+				foreach(var destination in board.GetValidDestinationPieces(source))
 				{
 					moveNode = moveDocument.CreateElement("Move");
 					movesNode.AppendChild(moveNode);
@@ -56,7 +49,7 @@ namespace Quixo.SmartEngine
 					moveNode.Attributes.Append(moveDestinationNode);
 					moveDestinationNode.Value = destination.ToString();
 
-					Board nextMoveBoard = ((Board)board.Clone());
+					var nextMoveBoard = ((Board)board.Clone());
 					nextMoveBoard.MovePiece(source, destination);
 
 					possibleBestValue = this.MinimaxAB(nextMoveBoard, board.CurrentPlayer, false, 1,
@@ -74,14 +67,14 @@ namespace Quixo.SmartEngine
 				}
 			}
 
-			string moveFileName = Guid.NewGuid().ToString("n") + ".xml";
+			var moveFileName = Guid.NewGuid().ToString("n") + ".xml";
 			moveDocument.Save(moveFileName);
 
 			if(this.debugWriter != null)
 			{
 				this.debugWriter.WriteLine(
 					 string.Format("Best value for move {0}: {1} ", generatedMove.Print(), bestValue));
-				Board nextMoveBoard = (Board)board.Clone();
+				var nextMoveBoard = (Board)board.Clone();
 				nextMoveBoard.MovePiece(generatedMove.Source, generatedMove.Destination);
 
 				this.debugWriter.WriteLine(
@@ -97,7 +90,7 @@ namespace Quixo.SmartEngine
 			XmlNode moveNode = null;
 			XmlAttribute movePlayerNode = null, moveSourceNode = null, moveDestinationNode = null, moveValue = null;
 
-			int evaluation = 0;
+			var evaluation = 0;
 
 			if(depth >= DepthLimit || board.WinningPlayer != Player.None)
 			{
@@ -114,11 +107,11 @@ namespace Quixo.SmartEngine
 			}
 			else
 			{
-				int nextEvaluation = 0;
+				var nextEvaluation = 0;
 
-				foreach(Point source in board.GetValidSourcePieces())
+				foreach(var source in board.GetValidSourcePieces())
 				{
-					foreach(Point destination in board.GetValidDestinationPieces(source))
+					foreach(var destination in board.GetValidDestinationPieces(source))
 					{
 						moveNode = parentMoveNode.OwnerDocument.CreateElement("Move");
 						parentMoveNode.AppendChild(moveNode);
@@ -132,10 +125,10 @@ namespace Quixo.SmartEngine
 						moveNode.Attributes.Append(moveDestinationNode);
 						moveDestinationNode.Value = destination.ToString();
 
-						Board nextMoveBoard = (Board)board.Clone();
+						var nextMoveBoard = (Board)board.Clone();
 						nextMoveBoard.MovePiece(source, destination);
 
-						int newDepth = depth;
+						var newDepth = depth;
 						nextEvaluation = this.MinimaxAB(nextMoveBoard, currentPlayer, !isMax, ++newDepth, alpha, beta, moveNode);
 
 						moveValue = parentMoveNode.OwnerDocument.CreateAttribute("Value");
@@ -177,7 +170,7 @@ namespace Quixo.SmartEngine
 
 		private int Evaluate(Board board, Player currentPlayer)
 		{
-			int evaluation = 0;
+			var evaluation = 0;
 
 			if(board.WinningPlayer != Player.None)
 			{
@@ -200,13 +193,13 @@ namespace Quixo.SmartEngine
 
 		public int Evaluate(Board board)
 		{
-			int evaluation = 0;
+			var evaluation = 0;
 
 			if(board.WinningPlayer != Player.None)
 			{
 				if(board.Moves.Count > 0)
 				{
-					Move lastMove = board.Moves[board.Moves.Count - 1];
+					var lastMove = board.Moves[board.Moves.Count - 1];
 
 					if(lastMove.Player == board.WinningPlayer)
 					{
@@ -236,20 +229,18 @@ namespace Quixo.SmartEngine
 			return evaluation;
 		}
 
-		private int UpdateContinuation(int currentContinuationValue)
-		{
-			// TODO - this is wrong!
-			return (currentContinuationValue ^ 2) * 4;
-		}
+		// TODO - this is wrong!
+		private int UpdateContinuation(int currentContinuationValue) =>
+			(currentContinuationValue ^ 2) * 4;
 
 		private int EvaluateHorizontalLines(Board board, int evaluation)
 		{
-			int horizontalEvaluation = evaluation;
+			var horizontalEvaluation = evaluation;
 			bool hasWinningLine = false, hasLosingLine = false;
 
-			for(int y = 0; y < Board.Dimension; y++)
+			for(var y = 0; y < Board.Dimension; y++)
 			{
-				Player lineState = board.GetPiece(0, y);
+				var lineState = board.GetPiece(0, y);
 
 				if(lineState == board.CurrentPlayer)
 				{
@@ -260,11 +251,11 @@ namespace Quixo.SmartEngine
 					horizontalEvaluation--;
 				}
 
-				int continuationFactor = 1;
+				var continuationFactor = 1;
 
-				for(int x = 1; x < Board.Dimension; x++)
+				for(var x = 1; x < Board.Dimension; x++)
 				{
-					Player currentPiece = board.GetPiece(x, y);
+					var currentPiece = board.GetPiece(x, y);
 
 					if(currentPiece == board.CurrentPlayer)
 					{
@@ -321,12 +312,12 @@ namespace Quixo.SmartEngine
 
 		private int EvaluateVerticalLines(Board board, int evaluation)
 		{
-			int verticalEvaluation = evaluation;
+			var verticalEvaluation = evaluation;
 			bool hasWinningLine = false, hasLosingLine = false;
 
-			for(int x = 0; x < Board.Dimension; x++)
+			for(var x = 0; x < Board.Dimension; x++)
 			{
-				Player lineState = board.GetPiece(x, 0);
+				var lineState = board.GetPiece(x, 0);
 
 				if(lineState == board.CurrentPlayer)
 				{
@@ -337,11 +328,11 @@ namespace Quixo.SmartEngine
 					verticalEvaluation--;
 				}
 
-				int continuationFactor = 1;
+				var continuationFactor = 1;
 
-				for(int y = 1; y < Board.Dimension; y++)
+				for(var y = 1; y < Board.Dimension; y++)
 				{
-					Player currentPiece = board.GetPiece(x, y);
+					var currentPiece = board.GetPiece(x, y);
 
 					if(currentPiece == board.CurrentPlayer)
 					{
@@ -398,9 +389,9 @@ namespace Quixo.SmartEngine
 
 		private int EvaluateDiagonalLines(Board board, int evaluation)
 		{
-			int diagonalEvaluation = evaluation;
+			var diagonalEvaluation = evaluation;
 
-			Player lineState = board.GetPiece(0, 0);
+			var lineState = board.GetPiece(0, 0);
 
 			if(lineState == board.CurrentPlayer)
 			{
@@ -411,11 +402,11 @@ namespace Quixo.SmartEngine
 				diagonalEvaluation--;
 			}
 
-			int continuationFactor = 1;
+			var continuationFactor = 1;
 
-			for(int x = 1; x < Board.Dimension; x++)
+			for(var x = 1; x < Board.Dimension; x++)
 			{
-				Player currentPiece = board.GetPiece(x, x);
+				var currentPiece = board.GetPiece(x, x);
 
 				if(currentPiece == board.CurrentPlayer)
 				{
@@ -469,9 +460,9 @@ namespace Quixo.SmartEngine
 						diagonalEvaluation--;
 					}
 
-					for(int x = 1; x < Board.Dimension; x++)
+					for(var x = 1; x < Board.Dimension; x++)
 					{
-						Player currentPiece = board.GetPiece(x, Board.Dimension - 1 - x);
+						var currentPiece = board.GetPiece(x, Board.Dimension - 1 - x);
 
 						if(currentPiece == board.CurrentPlayer)
 						{

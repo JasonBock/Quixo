@@ -40,10 +40,7 @@ namespace Quixo.Framework
 		/// Initializes a new instance of the <see cref="Board"/> class
 		/// </summary>
 		public Board()
-			: base()
-		{
-			this.Reset();
-		}
+			: base() => this.Reset();
 
 		private void Reset()
 		{
@@ -70,11 +67,10 @@ namespace Quixo.Framework
 			if (position.X < 0 || position.X > (Board.Dimension) ||
 				position.Y < 0 || position.Y > (Board.Dimension))
 			{
-				throw new IndexOutOfRangeException(
-					"Point " + position.ToString() + " is out of range.");
+				throw new IndexOutOfRangeException($"Point {position.ToString()} is out of range.");
 			}
 
-			int shiftOut = this.GetShiftOut(position.X, position.Y);
+			var shiftOut = this.GetShiftOut(position.X, position.Y);
 			return (Player)((this.pieces >> shiftOut) & 3L);
 		}
 
@@ -93,15 +89,11 @@ namespace Quixo.Framework
 		/// <returns>
 		/// The <see cref="Piece"/> object at the requested position.
 		/// </returns>
-		public Player GetPiece(int x, int y)
-		{
-			return this.GetPiece(new Point(x, y));
-		}
+		public Player GetPiece(int x, int y) =>
+			this.GetPiece(new Point(x, y));
 
-		private int GetShiftOut(int x, int y)
-		{
-			return 10 * x + 2 * y;
-		}
+		private int GetShiftOut(int x, int y) =>
+			10 * x + 2 * y;
 
 		public void Undo(int count)
 		{
@@ -119,7 +111,7 @@ namespace Quixo.Framework
 
 				this.Reset();
 
-				for (int i = 0; i < currentMoves.Count - 1; i++)
+				for (var i = 0; i < currentMoves.Count - 1; i++)
 				{
 					var move = currentMoves[i];
 					this.MovePiece(move.Source, move.Destination);
@@ -215,12 +207,12 @@ namespace Quixo.Framework
 			return points;
 		}
 
-		private bool IsLessThan(int sweep, int checkPoint) { return sweep < checkPoint; }
-		private bool IsGreaterThan(int sweep, int checkPoint) { return sweep > checkPoint; }
-		private void Increment(ref int sweep) { sweep++; }
-		private void Decrement(ref int sweep) { sweep--; }
-		private int NextPieceBack(int position) { return --position; }
-		private int NextPieceForward(int position) { return ++position; }
+		private bool IsLessThan(int sweep, int checkPoint) => sweep < checkPoint;
+		private bool IsGreaterThan(int sweep, int checkPoint) => sweep > checkPoint;
+		private void Increment(ref int sweep) => sweep++;
+		private void Decrement(ref int sweep) => sweep--;
+		private int NextPieceBack(int position) => --position;
+		private int NextPieceForward(int position) => ++position;
 
 		private void UpdateBoard(Point source, Point destination)
 		{
@@ -321,9 +313,9 @@ namespace Quixo.Framework
 				this.currentPlayer = currentBoard.currentPlayer;
 				this.winningPlayer = currentBoard.winningPlayer;
 
-				for (int x = 0; x < Board.Dimension; x++)
+				for (var x = 0; x < Board.Dimension; x++)
 				{
-					for (int y = 0; y < Board.Dimension; y++)
+					for (var y = 0; y < Board.Dimension; y++)
 					{
 						this.SetPiece(x, y, currentBoard.GetPiece(x, y));
 					}
@@ -410,47 +402,24 @@ namespace Quixo.Framework
 			}
 		}
 
-		private bool IsOuterPiece(Point position)
-		{
-			return position.X != 0 || position.X != (Dimension - 1) ||
+		private bool IsOuterPiece(Point position) =>
+			position.X != 0 || position.X != (Dimension - 1) ||
 				 position.Y != 0 || position.Y != (Dimension - 1);
-		}
 
-		public Player CurrentPlayer
-		{
-			get
+		public Player CurrentPlayer => this.currentPlayer;
+
+		public MoveCollection Moves => this.moveHistory;
+
+		public Player WinningPlayer => this.winningPlayer;
+
+		public object Clone() => 
+			new Board
 			{
-				return this.currentPlayer;
-			}
-		}
-
-		public MoveCollection Moves
-		{
-			get
-			{
-				return this.moveHistory;
-			}
-		}
-
-		public Player WinningPlayer
-		{
-			get
-			{
-				return this.winningPlayer;
-			}
-		}
-
-		public object Clone()
-		{
-			var newBoard = new Board();
-
-			newBoard.currentPlayer = this.currentPlayer;
-			newBoard.winningPlayer = this.winningPlayer;
-			newBoard.moveHistory = this.moveHistory.Clone() as MoveCollection;
-			newBoard.pieces = this.pieces;
-
-			return newBoard;
-		}
+				currentPlayer = this.currentPlayer,
+				winningPlayer = this.winningPlayer,
+				moveHistory = this.moveHistory.Clone() as MoveCollection,
+				pieces = this.pieces
+			};
 
 		private sealed class WinningLines
 		{
@@ -476,7 +445,7 @@ namespace Quixo.Framework
 				this.CalculateHorizontalWinners();
 				this.CalculateVerticalWinners();
 				this.CalculateDiagonalWinners();
-				int winningLineCount = this.xCount + this.oCount + this.blankCount;
+				var winningLineCount = this.xCount + this.oCount + this.blankCount;
 
 				if (winningLineCount != WinningLineCount)
 				{
@@ -487,13 +456,13 @@ namespace Quixo.Framework
 
 			private void CalculateHorizontalWinners()
 			{
-				for (int y = 0; y < Board.Dimension; y++)
+				for (var y = 0; y < Board.Dimension; y++)
 				{
-					Player lineState = this.board.GetPiece(0, y);
+					var lineState = this.board.GetPiece(0, y);
 
-					for (int x = 1; x < Board.Dimension; x++)
+					for (var x = 1; x < Board.Dimension; x++)
 					{
-						Player currentPiece = this.board.GetPiece(x, y);
+						var currentPiece = this.board.GetPiece(x, y);
 
 						if (currentPiece == Player.None || currentPiece != lineState)
 						{
@@ -508,13 +477,13 @@ namespace Quixo.Framework
 
 			private void CalculateVerticalWinners()
 			{
-				for (int x = 0; x < Board.Dimension; x++)
+				for (var x = 0; x < Board.Dimension; x++)
 				{
-					Player lineState = this.board.GetPiece(x, 0);
+					var lineState = this.board.GetPiece(x, 0);
 
-					for (int y = 1; y < Board.Dimension; y++)
+					for (var y = 1; y < Board.Dimension; y++)
 					{
-						Player currentPiece = this.board.GetPiece(x, y);
+						var currentPiece = this.board.GetPiece(x, y);
 
 						if (currentPiece == Player.None || currentPiece != lineState)
 						{
@@ -529,11 +498,11 @@ namespace Quixo.Framework
 
 			private void CalculateDiagonalWinners()
 			{
-				Player lineState = this.board.GetPiece(0, 0);
+				var lineState = this.board.GetPiece(0, 0);
 
-				for (int x = 0; x < Board.Dimension; x++)
+				for (var x = 0; x < Board.Dimension; x++)
 				{
-					Player currentPiece = this.board.GetPiece(x, x);
+					var currentPiece = this.board.GetPiece(x, x);
 
 					if (currentPiece == Player.None || currentPiece != lineState)
 					{
@@ -546,9 +515,9 @@ namespace Quixo.Framework
 
 				lineState = this.board.GetPiece(0, Board.Dimension - 1);
 
-				for (int x = 0; x < Board.Dimension; x++)
+				for (var x = 0; x < Board.Dimension; x++)
 				{
-					Player currentPiece = this.board.GetPiece(x, Board.Dimension - 1 - x);
+					var currentPiece = this.board.GetPiece(x, Board.Dimension - 1 - x);
 
 					if (currentPiece == Player.None || currentPiece != lineState)
 					{
@@ -576,29 +545,11 @@ namespace Quixo.Framework
 				}
 			}
 
-			public int NoneCount
-			{
-				get
-				{
-					return this.blankCount;
-				}
-			}
+			public int NoneCount => this.blankCount;
 
-			public int XCount
-			{
-				get
-				{
-					return this.xCount;
-				}
-			}
+			public int XCount => this.xCount;
 
-			public int OCount
-			{
-				get
-				{
-					return this.oCount;
-				}
-			}
+			public int OCount => this.oCount;
 		}
 	}
 }

@@ -11,10 +11,8 @@ namespace Quixo.Framework.Tests
 		private Player player = Player.X;
 
 		[SetUp]
-		public void SetUp()
-		{
+		public void SetUp() =>
 			this.board = new Board();
-		}
 
 		[Test]
 		public void CheckUndo()
@@ -144,8 +142,8 @@ namespace Quixo.Framework.Tests
 			{
 				for (var y = 0; y < Board.Dimension; y++)
 				{
-					Assert.AreEqual(this.states[x, y], board.GetPiece(new Point(x, y)),
-						 string.Format("The state of the piece at ({0}, {1}) is incorrect.", x, y));
+					Assert.AreEqual(this.states[x, y], this.board.GetPiece(new Point(x, y)),
+						 $"The state of the piece at ({x}, {y}) is incorrect.");
 				}
 			}
 
@@ -189,7 +187,7 @@ namespace Quixo.Framework.Tests
 		private void MakeMove(Point source, Point destination)
 		{
 			Assert.AreEqual(this.player, this.board.CurrentPlayer,
-				 "The current player before the move was made is incorrect.");
+				"The current player before the move was made is incorrect.");
 
 			this.board.MovePiece(source, destination);
 
@@ -212,7 +210,7 @@ namespace Quixo.Framework.Tests
 			}
 
 			Assert.AreEqual(this.player, this.board.CurrentPlayer,
-				 "The current player after the move was made is incorrect.");
+				"The current player after the move was made is incorrect.");
 		}
 	}
 }

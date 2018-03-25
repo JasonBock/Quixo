@@ -10,7 +10,6 @@ namespace Quixo.Framework
 	public sealed class Piece
 	{
 		private Player player = Player.None;
-		private Point position = Point.Empty;
 
 		private Piece() : base() { }
 
@@ -18,29 +17,17 @@ namespace Quixo.Framework
 			: this()
 		{
 			this.player = player;
-			this.position = position;
+			this.Position = position;
 		}
 
 		/// <summary>
 		/// Gets the location of the <see cref="Piece"/>.
 		/// </summary>
-		public Point Position
-		{
-			get
-			{
-				return this.position;
-			}
-		}
+		public Point Position { get; } = Point.Empty;
 
 		/// <summary>
 		/// Gets the current player of the <see cref="Piece"/>.
 		/// </summary>
-		public Player Player
-		{
-			get
-			{
-				return this.player;
-			}
-		}
+		public Player Player => this.player;
 	}
 }

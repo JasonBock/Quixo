@@ -94,18 +94,18 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public void DeserializeWithValidMoves()
 		{
-			string boardData = "0,0:0,4|4,0:4,4|0,0:0,4";
+			var boardData = "0,0:0,4|4,0:4,4|0,0:0,4";
 			IFormatter formatter = new BoardFormatter();
 			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
-			Board board = formatter.Deserialize(stream) as Board;
+			var board = formatter.Deserialize(stream) as Board;
 			Assert.AreEqual(3, board.Moves.Count);
 		}
 
 		[Test]
 		public void SerializeInvalidType()
 		{
-			string board = "0,0:0,4|4,0:4,4|0,0:0,4";
+			var board = "0,0:0,4|4,0:4,4|0,0:0,4";
 			IFormatter formatter = new BoardFormatter();
 			Stream outStream = new MemoryStream();
 			Assert.Throws<ArgumentException>(() => formatter.Serialize(outStream, board));
@@ -123,7 +123,7 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public void SerializeWithNullStream()
 		{
-			Board board = new Board();
+			var board = new Board();
 			IFormatter formatter = new BoardFormatter();
 			Stream outStream = null;
 			Assert.Throws<ArgumentNullException>(() => formatter.Serialize(outStream, board));
@@ -132,7 +132,7 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public void DeserializeWithInvalidMoveInState()
 		{
-			string boardData = "0,0:0,4|4,6:4,4|0,0:0,4";
+			var boardData = "0,0:0,4|4,6:4,4|0,0:0,4";
 			IFormatter formatter = new BoardFormatter();
 			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
@@ -142,7 +142,7 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public void DeserializeWithInvalidMoveDelimiter()
 		{
-			string boardData = "0,0:0,4|4,0:4,4!0,0:0,4";
+			var boardData = "0,0:0,4|4,0:4,4!0,0:0,4";
 			IFormatter formatter = new BoardFormatter();
 			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
@@ -152,7 +152,7 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public void DeserializeWithInvalidCoordinateDelimiter()
 		{
-			string boardData = "0,0:0,4|4,0:4,4|0,0:0*4";
+			var boardData = "0,0:0,4|4,0:4,4|0,0:0*4";
 			IFormatter formatter = new BoardFormatter();
 			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
@@ -162,7 +162,7 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public void DeserializeWithInvalidMovePairDelimiter()
 		{
-			string boardData = "0,0?0,4|4,0:4,4|0,0:0,4";
+			var boardData = "0,0?0,4|4,0:4,4|0,0:0,4";
 			IFormatter formatter = new BoardFormatter();
 			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 

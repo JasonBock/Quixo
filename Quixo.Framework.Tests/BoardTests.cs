@@ -10,20 +10,18 @@ namespace Quixo.Framework.Tests
 		private Board board = null;
 
 		[SetUp]
-		public void SetUp()
-		{
+		public void SetUp() => 
 			this.board = new Board();
-		}
 
 		[Test]
 		public void CreateNewBoard()
 		{
-			for (int x = 0; x < Board.Dimension; x++)
+			for (var x = 0; x < Board.Dimension; x++)
 			{
-				for (int y = 0; y < Board.Dimension; y++)
+				for (var y = 0; y < Board.Dimension; y++)
 				{
 					Assert.AreEqual(Player.None, this.board.GetPiece(new Point(x, y)),
-						 string.Format("The player of the piece at ({0}, {1}) is incorrect.", x, y));
+						 $"The player of the piece at ({x}, {y}) is incorrect.");
 				}
 			}
 		}
@@ -36,25 +34,25 @@ namespace Quixo.Framework.Tests
 			var destinationPieces = this.board.GetValidDestinationPieces(nonCornerPoint);
 
 			Assert.IsNotNull(destinationPieces,
-				 string.Format("The destination pieces collection for point {0} is null.", nonCornerPoint));
+				 $"The destination pieces collection for point {nonCornerPoint} is null.");
 			Assert.AreEqual(3, destinationPieces.Count,
-				 string.Format("The count for point {0} is invalid.", nonCornerPoint));
+				 $"The count for point {nonCornerPoint} is invalid.");
 
 			destinationPieces = this.board.GetValidDestinationPieces(cornerPoint);
 
 			Assert.IsNotNull(destinationPieces,
-				 string.Format("The destination pieces collection for point {0} is null.", cornerPoint));
+				 $"The destination pieces collection for point {cornerPoint} is null.");
 			Assert.AreEqual(2, destinationPieces.Count,
-				 string.Format("The count for point {0} is invalid.", cornerPoint));
+				 $"The count for point {cornerPoint} is invalid.");
 
 			this.board.MovePiece(nonCornerPoint, cornerPoint);
 
 			destinationPieces = this.board.GetValidDestinationPieces(cornerPoint);
 
 			Assert.IsNotNull(destinationPieces,
-				 string.Format("The destination pieces collection for point {0} (after the move) is null.", cornerPoint));
+				 $"The destination pieces collection for point {cornerPoint} (after the move) is null.");
 			Assert.AreEqual(0, destinationPieces.Count,
-				 string.Format("The count for point {0} (after the move) is invalid.", cornerPoint));
+				 $"The count for point {cornerPoint} (after the move) is invalid.");
 		}
 
 		[Test]
@@ -67,10 +65,8 @@ namespace Quixo.Framework.Tests
 		}
 
 		[Test]
-		public void RequestPieceAtInvalidPosition()
-		{
+		public void RequestPieceAtInvalidPosition() => 
 			Assert.Throws<IndexOutOfRangeException>(() => this.board.GetPiece(new Point(24, -16)));
-		}
 
 		[Test]
 		public void MakeOutOfTurnMove()
@@ -80,22 +76,16 @@ namespace Quixo.Framework.Tests
 		}
 
 		[Test]
-		public void MovePieceToSameSourcePosition()
-		{
+		public void MovePieceToSameSourcePosition() => 
 			Assert.Throws<InvalidMoveException>(() => this.board.MovePiece(new Point(1, 0), new Point(1, 0)));
-		}
 
 		[Test]
-		public void MovePieceToIncorrectDestination()
-		{
+		public void MovePieceToIncorrectDestination() => 
 			Assert.Throws<InvalidMoveException>(() => this.board.MovePiece(new Point(1, 0), new Point(4, 2)));
-		}
 
 		[Test]
-		public void MoveInternalPiece()
-		{
+		public void MoveInternalPiece() => 
 			Assert.Throws<InvalidMoveException>(() => this.board.MovePiece(new Point(3, 2), new Point(1, 0)));
-		}
 
 		[Test]
 		public void TryToMoveAfterAWin()

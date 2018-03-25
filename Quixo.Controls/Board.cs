@@ -1,11 +1,9 @@
 using QF = Quixo.Framework;
 using Quixo.Engine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -33,9 +31,9 @@ namespace Quixo.Controls
 			this.InitializeBoard(null, null, null);
 			this.moveWorker = new BackgroundWorker();
 			this.moveWorker.DoWork += 
-				new DoWorkEventHandler(OnMoveWorkerDoWork);
+				new DoWorkEventHandler(this.OnMoveWorkerDoWork);
 			this.moveWorker.RunWorkerCompleted += 
-				new RunWorkerCompletedEventHandler(OnMoveWorkerRunWorkerCompleted);
+				new RunWorkerCompletedEventHandler(this.OnMoveWorkerRunWorkerCompleted);
 		}
 
 		#region Component Designer generated code
@@ -48,7 +46,7 @@ namespace Quixo.Controls
 			// 
 			// Board
 			// 
-			this.BackColor = System.Drawing.Color.FromArgb(((System.Byte)(0)), ((System.Byte)(64)), ((System.Byte)(64)));
+			this.BackColor = Color.FromArgb(0, 64, 64);
 			this.Name = "Board";
 			this.Size = new System.Drawing.Size(600, 504);
 
@@ -92,8 +90,8 @@ namespace Quixo.Controls
 			{
 				for (y = 0; y < QF.Board.Dimension; y++)
 				{
-					Point point = new Point(x, y);
-					Piece newPiece = new Piece(new QF.Piece(point, this.board.GetPiece(point)));
+					var point = new Point(x, y);
+					var newPiece = new Piece(new QF.Piece(point, this.board.GetPiece(point)));
 					newPiece.Selected += this.OnPieceSelected;
 
 					this.pieces[x, y] = newPiece;
@@ -127,12 +125,12 @@ namespace Quixo.Controls
 				}
 			}
 
-			for (int x = 0; x < QF.Board.Dimension; x++)
+			for (var x = 0; x < QF.Board.Dimension; x++)
 			{
-				for (int y = 0; y < QF.Board.Dimension; y++)
+				for (var y = 0; y < QF.Board.Dimension; y++)
 				{
-					Point position = new Point(x, y);
-					Piece piece = this.pieces[x, y];
+					var position = new Point(x, y);
+					var piece = this.pieces[x, y];
 					piece.CurrentPlayer = this.board.GetPiece(position);
 
 					if (this.board.WinningPlayer != QF.Player.None)
@@ -162,9 +160,9 @@ namespace Quixo.Controls
 		{
 			if (!this.moveGenerationInProgress)
 			{
-				Piece piece = sender as Piece;
+				var piece = sender as Piece;
 
-				bool wasMoveMade = false;
+				var wasMoveMade = false;
 
 				if (piece.CurrentSelectedState == Piece.SelectedState.CanBeMoved)
 				{
@@ -187,11 +185,7 @@ namespace Quixo.Controls
 
 				if (wasMoveMade == true)
 				{
-					if (this.MoveMade != null)
-					{
-						this.MoveMade(this, EventArgs.Empty);
-					}
-
+					this.MoveMade?.Invoke(this, EventArgs.Empty);
 					this.CheckForMoveGeneration();
 				}
 
@@ -207,22 +201,22 @@ namespace Quixo.Controls
 
 		public void RedrawBoard()
 		{
-			int newWidth = (this.ClientSize.Width - PieceWidthTotalSpacing) / 5;
-			int newHeight = (this.ClientSize.Height - PieceHeightTotalSpacing) / 5;
-			Size newSize = new Size(newWidth, newHeight);
+			var newWidth = (this.ClientSize.Width - PieceWidthTotalSpacing) / 5;
+			var newHeight = (this.ClientSize.Height - PieceHeightTotalSpacing) / 5;
+			var newSize = new Size(newWidth, newHeight);
 
 			if (this.pieces != null)
 			{
-				for (int x = 0; x < QF.Board.Dimension; x++)
+				for (var x = 0; x < QF.Board.Dimension; x++)
 				{
-					for (int y = 0; y < QF.Board.Dimension; y++)
+					for (var y = 0; y < QF.Board.Dimension; y++)
 					{
 						if (this.pieces[x, y] != null)
 						{
 							this.pieces[x, y].Size = newSize;
-							int xCoord = (newSize.Width * x) + (PieceSpace * (x + 1));
-							int yCoord = (newSize.Height * (QF.Board.Dimension - 1 - y)) + (PieceSpace * (QF.Board.Dimension - y));
-							Point piecePoint = new Point(xCoord, yCoord);
+							var xCoord = (newSize.Width * x) + (PieceSpace * (x + 1));
+							var yCoord = (newSize.Height * (QF.Board.Dimension - 1 - y)) + (PieceSpace * (QF.Board.Dimension - y));
+							var piecePoint = new Point(xCoord, yCoord);
 							this.pieces[x, y].Location = piecePoint;
 						}
 					}
@@ -235,7 +229,7 @@ namespace Quixo.Controls
 			if ((this.board.CurrentPlayer == QF.Player.O && this.playerO != null) ||
 				 (this.board.CurrentPlayer == QF.Player.X && this.playerX != null))
 			{
-				IEngine nextMoveEngine = (this.playerX != null) ? this.playerX : ((this.playerO != null) ? this.playerO : null);
+				var nextMoveEngine = (this.playerX != null) ? this.playerX : ((this.playerO != null) ? this.playerO : null);
 
 				if (nextMoveEngine != null)
 				{
@@ -247,15 +241,12 @@ namespace Quixo.Controls
 
 		private void OnMoveWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
-			QF.Move nextMove = e.Result as QF.Move;
+			var nextMove = e.Result as QF.Move;
 
 			// TODO (4/12/2005): Add error handling. If the move is in error, the human automatically wins.
 			this.board.MovePiece(nextMove.Source, nextMove.Destination);
 
-			if (this.MoveMade != null)
-			{
-				this.MoveMade(this, EventArgs.Empty);
-			}
+			this.MoveMade?.Invoke(this, EventArgs.Empty);
 
 			this.UpdatePieceStates();
 			this.moveGenerationInProgress = false;
@@ -264,31 +255,19 @@ namespace Quixo.Controls
 
 		private void OnMoveWorkerDoWork(object sender, DoWorkEventArgs e)
 		{
-			IEngine nextMoveEngine = e.Argument as IEngine;
+			var nextMoveEngine = e.Argument as IEngine;
 			e.Result = nextMoveEngine.GenerateMove(this.board.Clone() as QF.Board, new ManualResetEvent(false));
 		}
 
-		internal QF.Board InternalBoard
-		{
-			get
-			{
-				return this.board;
-			}
-		}
+		internal QF.Board InternalBoard => this.board;
 
-		internal bool IsMoveGenerationInProgress
-		{
-			get
-			{
-				return this.moveGenerationInProgress;
-			}
-		}
+		internal bool IsMoveGenerationInProgress => this.moveGenerationInProgress;
 
 		internal string PlayerODescription
 		{
 			get
 			{
-				string playerODescription = ResetOptions.Human;
+				var playerODescription = ResetOptions.Human;
 
 				if (this.playerO != null)
 				{
@@ -303,7 +282,7 @@ namespace Quixo.Controls
 		{
 			get
 			{
-				string playerXDescription = ResetOptions.Human;
+				var playerXDescription = ResetOptions.Human;
 
 				if (this.playerX != null)
 				{

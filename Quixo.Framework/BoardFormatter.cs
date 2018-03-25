@@ -51,7 +51,7 @@ namespace Quixo.Framework
 
 			try
 			{
-				foreach (string move in moves.Split('|'))
+				foreach (var move in moves.Split('|'))
 				{
 					var moveParts = move.Split(':');
 					var sourceMove = moveParts[0].Split(',')[0];
@@ -118,38 +118,20 @@ namespace Quixo.Framework
 
 		public SerializationBinder Binder
 		{
-			get
-			{
-				return this.binder;
-			}
-			set
-			{
-				this.binder = value;
-			}
+			get => this.binder;
+			set => this.binder = value;
 		}
 
 		public StreamingContext Context
 		{
-			get
-			{
-				return this.context;
-			}
-			set
-			{
-				this.context = value;
-			}
+			get => this.context;
+			set => this.context = value;
 		}
 
 		public ISurrogateSelector SurrogateSelector
 		{
-			get
-			{
-				return this.selector;
-			}
-			set
-			{
-				this.selector = value;
-			}
+			get => this.selector;
+			set => this.selector = value;
 		}
 	}
 }
