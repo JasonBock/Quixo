@@ -6,6 +6,11 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyTitle>Quixo.Framework</AssemblyTitle>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <Description>The engine that represent the Quixo game.</Description>
+    <Authors>Jason Bock</Authors>
+    <Company>http://www.jasonbock.net</Company>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Copyright>Copyright 2018</Copyright>
   </PropertyGroup>
 
 </Project>

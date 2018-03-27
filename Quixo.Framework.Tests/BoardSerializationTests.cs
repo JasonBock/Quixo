@@ -9,12 +9,11 @@ using NUnit.Framework;
 namespace Quixo.Framework.Tests
 {
 	[TestFixture]
-	public sealed class BoardSerializationTests
+	public static class BoardSerializationTests
 	{
 		[Test]
-		public void RoundTripWithBinary()
+		public static void RoundTripWithBinary()
 		{
-			IFormatter formatter = null;
 			MemoryStream outStream = null, inStream = null;
 			Board board = new Board(), newBoard = null;
 
@@ -24,7 +23,7 @@ namespace Quixo.Framework.Tests
 			board.MovePiece(new Point(4, 0), new Point(4, 4));
 			board.MovePiece(new Point(0, 0), new Point(0, 4));
 
-			formatter = new BinaryFormatter();
+			var formatter = new BinaryFormatter();
 			outStream = new MemoryStream();
 			formatter.Serialize(outStream, board);
 			inStream = new MemoryStream(outStream.ToArray());
@@ -52,9 +51,8 @@ namespace Quixo.Framework.Tests
 		}
 
 		[Test]
-		public void RoundTripWithCustomFormatter()
+		public static void RoundTripWithCustomFormatter()
 		{
-			IFormatter formatter = null;
 			MemoryStream outStream = null, inStream = null;
 			Board board = new Board(), newBoard = null;
 
@@ -64,11 +62,11 @@ namespace Quixo.Framework.Tests
 			board.MovePiece(new Point(4, 0), new Point(4, 4));
 			board.MovePiece(new Point(0, 0), new Point(0, 4));
 
-			formatter = new BoardFormatter();
+			var boardFormatter = new BoardFormatter();
 			outStream = new MemoryStream();
-			formatter.Serialize(outStream, board);
+			boardFormatter.Serialize(outStream, board);
 			inStream = new MemoryStream(outStream.ToArray());
-			newBoard = (Board)formatter.Deserialize(inStream);
+			newBoard = (Board)boardFormatter.Deserialize(inStream);
 
 			Assert.IsNotNull(newBoard, "The new board is null.");
 			Assert.AreEqual(5, newBoard.Moves.Count, "The move history is incorrect.");
@@ -80,11 +78,11 @@ namespace Quixo.Framework.Tests
 			board.MovePiece(new Point(4, 0), new Point(4, 4));
 			board.MovePiece(new Point(0, 0), new Point(0, 4));
 
-			formatter = new BinaryFormatter();
+			var binaryFormatter = new BinaryFormatter();
 			outStream = new MemoryStream();
-			formatter.Serialize(outStream, board);
+			binaryFormatter.Serialize(outStream, board);
 			inStream = new MemoryStream(outStream.ToArray());
-			newBoard = (Board)formatter.Deserialize(inStream);
+			newBoard = (Board)binaryFormatter.Deserialize(inStream);
 
 			Assert.AreEqual(9, newBoard.Moves.Count, "The move history (after the win) is incorrect.");
 			Assert.AreEqual(Player.None, newBoard.CurrentPlayer, "The current player (after the win) is incorrect.");
@@ -92,79 +90,76 @@ namespace Quixo.Framework.Tests
 		}
 
 		[Test]
-		public void DeserializeWithValidMoves()
+		public static void DeserializeWithValidMoves()
 		{
 			var boardData = "0,0:0,4|4,0:4,4|0,0:0,4";
-			IFormatter formatter = new BoardFormatter();
-			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
+			var formatter = new BoardFormatter();
+			var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
 			var board = formatter.Deserialize(stream) as Board;
 			Assert.AreEqual(3, board.Moves.Count);
 		}
 
 		[Test]
-		public void SerializeInvalidType()
+		public static void SerializeInvalidType()
 		{
 			var board = "0,0:0,4|4,0:4,4|0,0:0,4";
-			IFormatter formatter = new BoardFormatter();
-			Stream outStream = new MemoryStream();
-			Assert.Throws<ArgumentException>(() => formatter.Serialize(outStream, board));
+			var formatter = new BoardFormatter();
+			Assert.Throws<ArgumentException>(() => formatter.Serialize(new MemoryStream(), board));
 		}
 
 		[Test]
-		public void SerializeWithNullBoard()
+		public static void SerializeWithNullBoard()
 		{
 			Board board = null;
-			IFormatter formatter = new BoardFormatter();
-			Stream outStream = new MemoryStream();
-			Assert.Throws<ArgumentNullException>(() => formatter.Serialize(outStream, board));
+			var formatter = new BoardFormatter();
+			Assert.Throws<ArgumentNullException>(() => formatter.Serialize(new MemoryStream(), board));
 		}
 
 		[Test]
-		public void SerializeWithNullStream()
+		public static void SerializeWithNullStream()
 		{
 			var board = new Board();
-			IFormatter formatter = new BoardFormatter();
-			Stream outStream = null;
-			Assert.Throws<ArgumentNullException>(() => formatter.Serialize(outStream, board));
+			var formatter = new BoardFormatter();
+			Assert.Throws<ArgumentNullException>(() => formatter.Serialize(null, board));
 		}
 
 		[Test]
-		public void DeserializeWithInvalidMoveInState()
+		public static void DeserializeWithInvalidMoveInState()
 		{
 			var boardData = "0,0:0,4|4,6:4,4|0,0:0,4";
-			IFormatter formatter = new BoardFormatter();
-			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
+			var formatter = new BoardFormatter();
+			var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
 			Assert.Throws<SerializationException>(() => formatter.Deserialize(stream));
 		}
 
 		[Test]
-		public void DeserializeWithInvalidMoveDelimiter()
+		public static void DeserializeWithInvalidMoveDelimiter()
 		{
 			var boardData = "0,0:0,4|4,0:4,4!0,0:0,4";
-			IFormatter formatter = new BoardFormatter();
-			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
+			var formatter = new BoardFormatter();
+			var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
 			Assert.Throws<SerializationException>(() => formatter.Deserialize(stream));
 		}
 
 		[Test]
-		public void DeserializeWithInvalidCoordinateDelimiter()
+		public static void DeserializeWithInvalidCoordinateDelimiter()
 		{
 			var boardData = "0,0:0,4|4,0:4,4|0,0:0*4";
-			IFormatter formatter = new BoardFormatter();
-			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
+			var formatter = new BoardFormatter();
+			var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
 			Assert.Throws<SerializationException>(() => formatter.Deserialize(stream));
 		}
 
 		[Test]
-		public void DeserializeWithInvalidMovePairDelimiter()
+		public static void DeserializeWithInvalidMovePairDelimiter()
 		{
 			var boardData = "0,0?0,4|4,0:4,4|0,0:0,4";
-			IFormatter formatter = new BoardFormatter();
-			Stream stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
+			var formatter = new BoardFormatter();
+			var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
 			Assert.Throws<SerializationException>(() => formatter.Deserialize(stream));
 		}

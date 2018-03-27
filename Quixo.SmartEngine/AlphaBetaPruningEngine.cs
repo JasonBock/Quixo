@@ -14,10 +14,11 @@ namespace Quixo.SmartEngine
 		private const int LosingLine = int.MinValue;
 		private const int WinningLine = int.MaxValue;
 
-		// TODO (4/15/2005) Need a way to clean out old debug files.
-		public AlphaBetaPruningEngine() : base() { }
+		private string directory;
 
-		public AlphaBetaPruningEngine(TextWriter debugWriter) : base(debugWriter) { }
+		// TODO (4/15/2005) Need a way to clean out old debug files.
+		public AlphaBetaPruningEngine(string directory) => 
+			this.directory = directory;
 
 		public override Move GenerateMove(Board board, ManualResetEvent cancel)
 		{
@@ -67,8 +68,8 @@ namespace Quixo.SmartEngine
 				}
 			}
 
-			var moveFileName = Guid.NewGuid().ToString("n") + ".xml";
-			moveDocument.Save(moveFileName);
+			var moveFileName = $"{Guid.NewGuid().ToString("n")}.xml";
+			moveDocument.Save(Path.Combine(this.directory, moveFileName));
 
 			if(this.debugWriter != null)
 			{

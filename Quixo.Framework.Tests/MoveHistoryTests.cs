@@ -4,10 +4,10 @@ using NUnit.Framework;
 namespace Quixo.Framework.Tests
 {
 	[TestFixture]
-	public sealed class MoveTests
+	public static class MoveTests
 	{
 		[Test]
-		public void GetBoardHistory()
+		public static void GetBoardHistory()
 		{
 			var board = new Board();
 			board.MovePiece(new Point(0, 2), new Point(4, 2));

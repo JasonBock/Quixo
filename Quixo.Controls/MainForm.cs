@@ -78,42 +78,42 @@ namespace Quixo.Controls
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			this.gameStatisticsPanel = new System.Windows.Forms.Panel();
-			this.playerOValueLabel = new System.Windows.Forms.Label();
-			this.playerXValueLabel = new System.Windows.Forms.Label();
-			this.playerOLabel = new System.Windows.Forms.Label();
-			this.playerXLabel = new System.Windows.Forms.Label();
-			this.winningPlayerValueLabel = new System.Windows.Forms.Label();
-			this.currentPlayerValueLabel = new System.Windows.Forms.Label();
-			this.winningPlayerLabel = new System.Windows.Forms.Label();
-			this.currentPlayerLabel = new System.Windows.Forms.Label();
-			this.gameStatisticsSplitter = new System.Windows.Forms.Splitter();
-			this.debugPanel = new System.Windows.Forms.Panel();
-			this.debugTextBox = new System.Windows.Forms.TextBox();
-			this.debugSplitter = new System.Windows.Forms.Splitter();
-			this.moveHistoryPanel = new System.Windows.Forms.Panel();
-			this.moveHistoryList = new System.Windows.Forms.ListView();
-			this.moveColumn = new System.Windows.Forms.ColumnHeader();
-			this.playerColumn = new System.Windows.Forms.ColumnHeader();
-			this.sourceColumn = new System.Windows.Forms.ColumnHeader();
-			this.destinationColumn = new System.Windows.Forms.ColumnHeader();
-			this.undoContextMenu = new System.Windows.Forms.ContextMenu();
-			this.undoToPointContextMenu = new System.Windows.Forms.MenuItem();
-			this.moveHistorySplitter = new System.Windows.Forms.Splitter();
-			this.boardPanel = new System.Windows.Forms.Panel();
-			this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
-			this.fileMenuItem = new System.Windows.Forms.MenuItem();
-			this.fileOpenMenuItem = new System.Windows.Forms.MenuItem();
-			this.fileSaveMenuItem = new System.Windows.Forms.MenuItem();
-			this.separator2MenuItem = new System.Windows.Forms.MenuItem();
-			this.printMenuItem = new System.Windows.Forms.MenuItem();
-			this.separator1MenuItem = new System.Windows.Forms.MenuItem();
-			this.fileExitMenuItem = new System.Windows.Forms.MenuItem();
-			this.gameMenuItem = new System.Windows.Forms.MenuItem();
-			this.gameResetMenuItem = new System.Windows.Forms.MenuItem();
-			this.helpMenu = new System.Windows.Forms.MenuItem();
-			this.aboutMenu = new System.Windows.Forms.MenuItem();
+			this.components = new Container();
+			this.gameStatisticsPanel = new Panel();
+			this.playerOValueLabel = new Label();
+			this.playerXValueLabel = new Label();
+			this.playerOLabel = new Label();
+			this.playerXLabel = new Label();
+			this.winningPlayerValueLabel = new Label();
+			this.currentPlayerValueLabel = new Label();
+			this.winningPlayerLabel = new Label();
+			this.currentPlayerLabel = new Label();
+			this.gameStatisticsSplitter = new Splitter();
+			this.debugPanel = new Panel();
+			this.debugTextBox = new TextBox();
+			this.debugSplitter = new Splitter();
+			this.moveHistoryPanel = new Panel();
+			this.moveHistoryList = new ListView();
+			this.moveColumn = new ColumnHeader();
+			this.playerColumn = new ColumnHeader();
+			this.sourceColumn = new ColumnHeader();
+			this.destinationColumn = new ColumnHeader();
+			this.undoContextMenu = new ContextMenu();
+			this.undoToPointContextMenu = new MenuItem();
+			this.moveHistorySplitter = new Splitter();
+			this.boardPanel = new Panel();
+			this.mainMenu = new MainMenu(this.components);
+			this.fileMenuItem = new MenuItem();
+			this.fileOpenMenuItem = new MenuItem();
+			this.fileSaveMenuItem = new MenuItem();
+			this.separator2MenuItem = new MenuItem();
+			this.printMenuItem = new MenuItem();
+			this.separator1MenuItem = new MenuItem();
+			this.fileExitMenuItem = new MenuItem();
+			this.gameMenuItem = new MenuItem();
+			this.gameResetMenuItem = new MenuItem();
+			this.helpMenu = new MenuItem();
+			this.aboutMenu = new MenuItem();
 			this.board = new Quixo.Controls.Board();
 			this.gameStatisticsPanel.SuspendLayout();
 			this.debugPanel.SuspendLayout();
@@ -131,154 +131,154 @@ namespace Quixo.Controls
 			this.gameStatisticsPanel.Controls.Add(this.currentPlayerValueLabel);
 			this.gameStatisticsPanel.Controls.Add(this.winningPlayerLabel);
 			this.gameStatisticsPanel.Controls.Add(this.currentPlayerLabel);
-			this.gameStatisticsPanel.Dock = System.Windows.Forms.DockStyle.Top;
-			this.gameStatisticsPanel.Location = new System.Drawing.Point(0, 0);
+			this.gameStatisticsPanel.Dock = DockStyle.Top;
+			this.gameStatisticsPanel.Location = new Point(0, 0);
 			this.gameStatisticsPanel.Name = "gameStatisticsPanel";
-			this.gameStatisticsPanel.Size = new System.Drawing.Size(736, 72);
+			this.gameStatisticsPanel.Size = new Size(736, 72);
 			this.gameStatisticsPanel.TabIndex = 0;
 			// 
 			// playerOValueLabel
 			// 
-			this.playerOValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-							| System.Windows.Forms.AnchorStyles.Right)));
-			this.playerOValueLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.playerOValueLabel.Location = new System.Drawing.Point(208, 40);
+			this.playerOValueLabel.Anchor = ((AnchorStyles.Top | AnchorStyles.Left)
+							| AnchorStyles.Right);
+			this.playerOValueLabel.BorderStyle = BorderStyle.FixedSingle;
+			this.playerOValueLabel.Location = new Point(208, 40);
 			this.playerOValueLabel.Name = "playerOValueLabel";
-			this.playerOValueLabel.Size = new System.Drawing.Size(520, 23);
+			this.playerOValueLabel.Size = new Size(520, 23);
 			this.playerOValueLabel.TabIndex = 7;
-			this.playerOValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.playerOValueLabel.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// playerXValueLabel
 			// 
-			this.playerXValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-							| System.Windows.Forms.AnchorStyles.Right)));
-			this.playerXValueLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.playerXValueLabel.Location = new System.Drawing.Point(208, 8);
+			this.playerXValueLabel.Anchor = ((AnchorStyles.Top | AnchorStyles.Left)
+							| AnchorStyles.Right);
+			this.playerXValueLabel.BorderStyle = BorderStyle.FixedSingle;
+			this.playerXValueLabel.Location = new Point(208, 8);
 			this.playerXValueLabel.Name = "playerXValueLabel";
-			this.playerXValueLabel.Size = new System.Drawing.Size(520, 23);
+			this.playerXValueLabel.Size = new Size(520, 23);
 			this.playerXValueLabel.TabIndex = 6;
-			this.playerXValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.playerXValueLabel.TextAlign = ContentAlignment.MiddleLeft;
 			// 
 			// playerOLabel
 			// 
-			this.playerOLabel.Location = new System.Drawing.Point(176, 40);
+			this.playerOLabel.Location = new Point(176, 40);
 			this.playerOLabel.Name = "playerOLabel";
-			this.playerOLabel.Size = new System.Drawing.Size(24, 23);
+			this.playerOLabel.Size = new Size(24, 23);
 			this.playerOLabel.TabIndex = 5;
 			this.playerOLabel.Text = "O";
-			this.playerOLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.playerOLabel.TextAlign = ContentAlignment.MiddleRight;
 			// 
 			// playerXLabel
 			// 
-			this.playerXLabel.Location = new System.Drawing.Point(176, 8);
+			this.playerXLabel.Location = new Point(176, 8);
 			this.playerXLabel.Name = "playerXLabel";
-			this.playerXLabel.Size = new System.Drawing.Size(24, 23);
+			this.playerXLabel.Size = new Size(24, 23);
 			this.playerXLabel.TabIndex = 4;
 			this.playerXLabel.Text = "X";
-			this.playerXLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.playerXLabel.TextAlign = ContentAlignment.MiddleRight;
 			// 
 			// winningPlayerValueLabel
 			// 
-			this.winningPlayerValueLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.winningPlayerValueLabel.Location = new System.Drawing.Point(104, 40);
+			this.winningPlayerValueLabel.BorderStyle = BorderStyle.FixedSingle;
+			this.winningPlayerValueLabel.Location = new Point(104, 40);
 			this.winningPlayerValueLabel.Name = "winningPlayerValueLabel";
-			this.winningPlayerValueLabel.Size = new System.Drawing.Size(56, 23);
+			this.winningPlayerValueLabel.Size = new Size(56, 23);
 			this.winningPlayerValueLabel.TabIndex = 3;
-			this.winningPlayerValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.winningPlayerValueLabel.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// currentPlayerValueLabel
 			// 
-			this.currentPlayerValueLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.currentPlayerValueLabel.Location = new System.Drawing.Point(104, 8);
+			this.currentPlayerValueLabel.BorderStyle = BorderStyle.FixedSingle;
+			this.currentPlayerValueLabel.Location = new Point(104, 8);
 			this.currentPlayerValueLabel.Name = "currentPlayerValueLabel";
-			this.currentPlayerValueLabel.Size = new System.Drawing.Size(56, 23);
+			this.currentPlayerValueLabel.Size = new Size(56, 23);
 			this.currentPlayerValueLabel.TabIndex = 2;
-			this.currentPlayerValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.currentPlayerValueLabel.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// winningPlayerLabel
 			// 
-			this.winningPlayerLabel.Location = new System.Drawing.Point(8, 40);
+			this.winningPlayerLabel.Location = new Point(8, 40);
 			this.winningPlayerLabel.Name = "winningPlayerLabel";
-			this.winningPlayerLabel.Size = new System.Drawing.Size(88, 23);
+			this.winningPlayerLabel.Size = new Size(88, 23);
 			this.winningPlayerLabel.TabIndex = 1;
 			this.winningPlayerLabel.Text = "Winning Player";
-			this.winningPlayerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.winningPlayerLabel.TextAlign = ContentAlignment.MiddleRight;
 			// 
 			// currentPlayerLabel
 			// 
-			this.currentPlayerLabel.Location = new System.Drawing.Point(8, 8);
+			this.currentPlayerLabel.Location = new Point(8, 8);
 			this.currentPlayerLabel.Name = "currentPlayerLabel";
-			this.currentPlayerLabel.Size = new System.Drawing.Size(88, 23);
+			this.currentPlayerLabel.Size = new Size(88, 23);
 			this.currentPlayerLabel.TabIndex = 0;
 			this.currentPlayerLabel.Text = "Current Player";
-			this.currentPlayerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.currentPlayerLabel.TextAlign = ContentAlignment.MiddleRight;
 			// 
 			// gameStatisticsSplitter
 			// 
-			this.gameStatisticsSplitter.Dock = System.Windows.Forms.DockStyle.Top;
-			this.gameStatisticsSplitter.Location = new System.Drawing.Point(0, 72);
+			this.gameStatisticsSplitter.Dock = DockStyle.Top;
+			this.gameStatisticsSplitter.Location = new Point(0, 72);
 			this.gameStatisticsSplitter.Name = "gameStatisticsSplitter";
-			this.gameStatisticsSplitter.Size = new System.Drawing.Size(736, 3);
+			this.gameStatisticsSplitter.Size = new Size(736, 3);
 			this.gameStatisticsSplitter.TabIndex = 1;
 			this.gameStatisticsSplitter.TabStop = false;
 			// 
 			// debugPanel
 			// 
 			this.debugPanel.Controls.Add(this.debugTextBox);
-			this.debugPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.debugPanel.Location = new System.Drawing.Point(0, 413);
+			this.debugPanel.Dock = DockStyle.Bottom;
+			this.debugPanel.Location = new Point(0, 413);
 			this.debugPanel.Name = "debugPanel";
-			this.debugPanel.Size = new System.Drawing.Size(736, 100);
+			this.debugPanel.Size = new Size(736, 100);
 			this.debugPanel.TabIndex = 2;
 			// 
 			// debugTextBox
 			// 
-			this.debugTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.debugTextBox.Location = new System.Drawing.Point(0, 0);
+			this.debugTextBox.Dock = DockStyle.Fill;
+			this.debugTextBox.Location = new Point(0, 0);
 			this.debugTextBox.MaxLength = 0;
 			this.debugTextBox.Multiline = true;
 			this.debugTextBox.Name = "debugTextBox";
 			this.debugTextBox.ReadOnly = true;
-			this.debugTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.debugTextBox.Size = new System.Drawing.Size(736, 100);
+			this.debugTextBox.ScrollBars = ScrollBars.Both;
+			this.debugTextBox.Size = new Size(736, 100);
 			this.debugTextBox.TabIndex = 0;
 			// 
 			// debugSplitter
 			// 
-			this.debugSplitter.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.debugSplitter.Location = new System.Drawing.Point(0, 410);
+			this.debugSplitter.Dock = DockStyle.Bottom;
+			this.debugSplitter.Location = new Point(0, 410);
 			this.debugSplitter.Name = "debugSplitter";
-			this.debugSplitter.Size = new System.Drawing.Size(736, 3);
+			this.debugSplitter.Size = new Size(736, 3);
 			this.debugSplitter.TabIndex = 3;
 			this.debugSplitter.TabStop = false;
 			// 
 			// moveHistoryPanel
 			// 
 			this.moveHistoryPanel.Controls.Add(this.moveHistoryList);
-			this.moveHistoryPanel.Dock = System.Windows.Forms.DockStyle.Right;
-			this.moveHistoryPanel.Location = new System.Drawing.Point(408, 75);
+			this.moveHistoryPanel.Dock = DockStyle.Right;
+			this.moveHistoryPanel.Location = new Point(408, 75);
 			this.moveHistoryPanel.Name = "moveHistoryPanel";
-			this.moveHistoryPanel.Size = new System.Drawing.Size(328, 335);
+			this.moveHistoryPanel.Size = new Size(328, 335);
 			this.moveHistoryPanel.TabIndex = 4;
 			// 
 			// moveHistoryList
 			// 
-			this.moveHistoryList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+			this.moveHistoryList.Columns.AddRange(new ColumnHeader[] {
             this.moveColumn,
             this.playerColumn,
             this.sourceColumn,
             this.destinationColumn});
 			this.moveHistoryList.ContextMenu = this.undoContextMenu;
-			this.moveHistoryList.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.moveHistoryList.Dock = DockStyle.Fill;
 			this.moveHistoryList.FullRowSelect = true;
 			this.moveHistoryList.GridLines = true;
-			this.moveHistoryList.Location = new System.Drawing.Point(0, 0);
+			this.moveHistoryList.Location = new Point(0, 0);
 			this.moveHistoryList.MultiSelect = false;
 			this.moveHistoryList.Name = "moveHistoryList";
-			this.moveHistoryList.Size = new System.Drawing.Size(328, 335);
+			this.moveHistoryList.Size = new Size(328, 335);
 			this.moveHistoryList.TabIndex = 0;
 			this.moveHistoryList.UseCompatibleStateImageBehavior = false;
-			this.moveHistoryList.View = System.Windows.Forms.View.Details;
+			this.moveHistoryList.View = View.Details;
 			// 
 			// moveColumn
 			// 
@@ -287,52 +287,52 @@ namespace Quixo.Controls
 			// playerColumn
 			// 
 			this.playerColumn.Text = "Player";
-			this.playerColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.playerColumn.TextAlign = HorizontalAlignment.Center;
 			// 
 			// sourceColumn
 			// 
 			this.sourceColumn.Text = "Source";
-			this.sourceColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.sourceColumn.TextAlign = HorizontalAlignment.Center;
 			this.sourceColumn.Width = 100;
 			// 
 			// destinationColumn
 			// 
 			this.destinationColumn.Text = "Destination";
-			this.destinationColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.destinationColumn.TextAlign = HorizontalAlignment.Center;
 			this.destinationColumn.Width = 100;
 			// 
 			// undoContextMenu
 			// 
-			this.undoContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.undoContextMenu.MenuItems.AddRange(new MenuItem[] {
             this.undoToPointContextMenu});
 			// 
 			// undoToPointContextMenu
 			// 
 			this.undoToPointContextMenu.Index = 0;
 			this.undoToPointContextMenu.Text = "Undo to This Point...";
-			this.undoToPointContextMenu.Click += new System.EventHandler(this.OnUndoToPointContextMenuClick);
+			this.undoToPointContextMenu.Click += new EventHandler(this.OnUndoToPointContextMenuClick);
 			// 
 			// moveHistorySplitter
 			// 
-			this.moveHistorySplitter.Dock = System.Windows.Forms.DockStyle.Right;
-			this.moveHistorySplitter.Location = new System.Drawing.Point(405, 75);
+			this.moveHistorySplitter.Dock = DockStyle.Right;
+			this.moveHistorySplitter.Location = new Point(405, 75);
 			this.moveHistorySplitter.Name = "moveHistorySplitter";
-			this.moveHistorySplitter.Size = new System.Drawing.Size(3, 335);
+			this.moveHistorySplitter.Size = new Size(3, 335);
 			this.moveHistorySplitter.TabIndex = 5;
 			this.moveHistorySplitter.TabStop = false;
 			// 
 			// boardPanel
 			// 
 			this.boardPanel.Controls.Add(this.board);
-			this.boardPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.boardPanel.Location = new System.Drawing.Point(0, 75);
+			this.boardPanel.Dock = DockStyle.Fill;
+			this.boardPanel.Location = new Point(0, 75);
 			this.boardPanel.Name = "boardPanel";
-			this.boardPanel.Size = new System.Drawing.Size(405, 335);
+			this.boardPanel.Size = new Size(405, 335);
 			this.boardPanel.TabIndex = 6;
 			// 
 			// mainMenu
 			// 
-			this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.mainMenu.MenuItems.AddRange(new MenuItem[] {
             this.fileMenuItem,
             this.gameMenuItem,
             this.helpMenu});
@@ -340,7 +340,7 @@ namespace Quixo.Controls
 			// fileMenuItem
 			// 
 			this.fileMenuItem.Index = 0;
-			this.fileMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.fileMenuItem.MenuItems.AddRange(new MenuItem[] {
             this.fileOpenMenuItem,
             this.fileSaveMenuItem,
             this.separator2MenuItem,
@@ -353,13 +353,13 @@ namespace Quixo.Controls
 			// 
 			this.fileOpenMenuItem.Index = 0;
 			this.fileOpenMenuItem.Text = "&Open";
-			this.fileOpenMenuItem.Click += new System.EventHandler(this.OnFileOpenMenuItemClick);
+			this.fileOpenMenuItem.Click += new EventHandler(this.OnFileOpenMenuItemClick);
 			// 
 			// fileSaveMenuItem
 			// 
 			this.fileSaveMenuItem.Index = 1;
 			this.fileSaveMenuItem.Text = "&Save";
-			this.fileSaveMenuItem.Click += new System.EventHandler(this.OnFileSaveMenuItemClick);
+			this.fileSaveMenuItem.Click += new EventHandler(this.OnFileSaveMenuItemClick);
 			// 
 			// separator2MenuItem
 			// 
@@ -384,7 +384,7 @@ namespace Quixo.Controls
 			// gameMenuItem
 			// 
 			this.gameMenuItem.Index = 1;
-			this.gameMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.gameMenuItem.MenuItems.AddRange(new MenuItem[] {
             this.gameResetMenuItem});
 			this.gameMenuItem.Text = "&Game";
 			// 
@@ -392,12 +392,12 @@ namespace Quixo.Controls
 			// 
 			this.gameResetMenuItem.Index = 0;
 			this.gameResetMenuItem.Text = "&Reset...";
-			this.gameResetMenuItem.Click += new System.EventHandler(this.OnGameResetMenuItemClick);
+			this.gameResetMenuItem.Click += new EventHandler(this.OnGameResetMenuItemClick);
 			// 
 			// helpMenu
 			// 
 			this.helpMenu.Index = 2;
-			this.helpMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+			this.helpMenu.MenuItems.AddRange(new MenuItem[] {
             this.aboutMenu});
 			this.helpMenu.Text = "&Help";
 			// 
@@ -405,21 +405,21 @@ namespace Quixo.Controls
 			// 
 			this.aboutMenu.Index = 0;
 			this.aboutMenu.Text = "&About...";
-			this.aboutMenu.Click += new System.EventHandler(this.OnAboutMenuClick);
+			this.aboutMenu.Click += new EventHandler(this.OnAboutMenuClick);
 			// 
 			// board
 			// 
-			this.board.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-			this.board.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.board.Location = new System.Drawing.Point(0, 0);
+			this.board.BackColor = Color.FromArgb(0, 64, 64);
+			this.board.Dock = DockStyle.Fill;
+			this.board.Location = new Point(0, 0);
 			this.board.Name = "board";
-			this.board.Size = new System.Drawing.Size(405, 335);
+			this.board.Size = new Size(405, 335);
 			this.board.TabIndex = 0;
 			// 
 			// MainForm
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 14);
-			this.ClientSize = new System.Drawing.Size(736, 513);
+			this.AutoScaleBaseSize = new Size(5, 14);
+			this.ClientSize = new Size(736, 513);
 			this.Controls.Add(this.boardPanel);
 			this.Controls.Add(this.moveHistorySplitter);
 			this.Controls.Add(this.moveHistoryPanel);
@@ -427,10 +427,10 @@ namespace Quixo.Controls
 			this.Controls.Add(this.debugPanel);
 			this.Controls.Add(this.gameStatisticsSplitter);
 			this.Controls.Add(this.gameStatisticsPanel);
-			this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Font = new Font("Tahoma", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			this.Menu = this.mainMenu;
 			this.Name = "MainForm";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.StartPosition = FormStartPosition.CenterScreen;
 			this.Text = "Quixo .NET";
 			this.gameStatisticsPanel.ResumeLayout(false);
 			this.debugPanel.ResumeLayout(false);
@@ -442,13 +442,13 @@ namespace Quixo.Controls
 		}
 		#endregion
 
-		private void OnAboutMenuClick(object sender, System.EventArgs e)
+		private void OnAboutMenuClick(object sender, EventArgs e)
 		{
 			var about = new AboutDialog();
 			about.ShowDialog(this);
 		}
 
-		private void OnFileOpenMenuItemClick(object sender, System.EventArgs e)
+		private void OnFileOpenMenuItemClick(object sender, EventArgs e)
 		{
 			var openDialog = new OpenFileDialog
 			{
@@ -475,7 +475,7 @@ namespace Quixo.Controls
 			}
 		}
 
-		private void OnFileSaveMenuItemClick(object sender, System.EventArgs e)
+		private void OnFileSaveMenuItemClick(object sender, EventArgs e)
 		{
 			var saveDialog = new SaveFileDialog
 			{
@@ -499,7 +499,7 @@ namespace Quixo.Controls
 			}
 		}
 
-		private void OnGameResetMenuItemClick(object sender, System.EventArgs e)
+		private void OnGameResetMenuItemClick(object sender, EventArgs e)
 		{
 			var options = new ResetOptions
 			{
@@ -515,7 +515,7 @@ namespace Quixo.Controls
 			}
 		}
 
-		private void OnUndoToPointContextMenuClick(object sender, System.EventArgs e)
+		private void OnUndoToPointContextMenuClick(object sender, EventArgs e)
 		{
 			if (this.moveHistoryList.SelectedItems.Count == 1)
 			{

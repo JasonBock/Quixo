@@ -16,8 +16,6 @@ namespace Quixo.Framework
 		private Point source = Point.Empty;
 		private Point destination = Point.Empty;
 
-		private Move() : base() { }
-
 		public Move(Player player, Point source, Point destination)
 		{
 			this.player = player;

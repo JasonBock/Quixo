@@ -9,9 +9,6 @@ namespace Quixo
 		private Entry() : base() { }
 
 		[STAThread()]
-		static void Main()
-		{
-			Application.Run(new MainForm());
-		}
+		static void Main() => Application.Run(new MainForm());
 	}
 }

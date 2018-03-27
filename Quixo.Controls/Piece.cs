@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Quixo.Controls
 {
@@ -15,7 +16,7 @@ namespace Quixo.Controls
 
 		public EventHandler Selected;
 
-		private System.ComponentModel.Container components = null;
+		private Container components = null;
 		private SelectedState currentSelectedState = SelectedState.None;
 		private QF.Piece piece = null;
 		private QF.Player currentPlayer = QF.Player.None;
@@ -54,7 +55,7 @@ namespace Quixo.Controls
 			// Piece
 			// 
 			this.Name = "Piece";
-			this.Size = new System.Drawing.Size(136, 136);
+			this.Size = new Size(136, 136);
 
 		}
 		#endregion

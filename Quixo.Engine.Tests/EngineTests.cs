@@ -7,10 +7,10 @@ using Quixo.Framework;
 namespace Quixo.Engine.Tests
 {
 	[TestFixture]
-	public sealed class EngineTests
+	public static class EngineTests
 	{
 		[Test]
-		public void UseGoodEngine()
+		public static void UseGoodEngine()
 		{
 			var goodEngine = new RandomEngine();
 
@@ -27,7 +27,7 @@ namespace Quixo.Engine.Tests
 		}
 
 		[Test]
-		public void UseBadNullEngine()
+		public static void UseBadNullEngine()
 		{
 			var badNullEngine = new BadNullTestEngine();
 
@@ -40,7 +40,7 @@ namespace Quixo.Engine.Tests
 		}
 
 		[Test]
-		public void UseBadMoveEngine()
+		public static void UseBadMoveEngine()
 		{
 			var badMoveEngine = new BadMoveTestEngine();
 

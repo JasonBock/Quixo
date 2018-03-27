@@ -35,10 +35,7 @@ namespace Quixo.Framework
 		/// <exception cref="SerializationException">Thrown if an error occurred during deserialization.</exception>
 		public object Deserialize(Stream serializationStream)
 		{
-			if (serializationStream == null)
-			{
-				throw new ArgumentNullException("serializationStream");
-			}
+			if (serializationStream == null) { throw new ArgumentNullException(nameof(serializationStream));  }
 
 			var board = new Board();
 
@@ -85,29 +82,18 @@ namespace Quixo.Framework
 		/// <exception cref="ArgumentException">Thrown if <paramref name="graph"/> is not a <see cref="Board"/>.</exception>
 		public void Serialize(Stream serializationStream, object graph)
 		{
-			if (graph == null)
-			{
-				throw new ArgumentNullException("graph");
-			}
+			if (graph == null) { throw new ArgumentNullException(nameof(graph)); }
 
-			if (serializationStream == null)
-			{
-				throw new ArgumentNullException("serializationStream");
-			}
+			if (serializationStream == null) { throw new ArgumentNullException(nameof(serializationStream)); }
 
-			if (graph.GetType() != typeof(Board))
-			{
-				throw new ArgumentException("The given object must be a Board.", "graph");
-			}
+			if (graph.GetType() != typeof(Board)) { throw new ArgumentException("The given object must be a Board.", nameof(graph)); }
 
 			var board = graph as Board;
 			var moves = new List<string>();
 
 			foreach (var move in board.Moves)
 			{
-				moves.Add(string.Format("{0},{1}:{2},{3}",
-					move.Source.X, move.Source.Y,
-					move.Destination.X, move.Destination.Y));
+				moves.Add($"{move.Source.X},{move.Source.Y}:{move.Destination.X},{move.Destination.Y}");
 			}
 
 			using (var writer = new StreamWriter(serializationStream))

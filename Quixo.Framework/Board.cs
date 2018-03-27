@@ -292,21 +292,8 @@ namespace Quixo.Framework
 
 				this.moveHistory.Add(new Move(this.currentPlayer, source, destination));
 
-				if (this.winningPlayer != Player.None)
-				{
-					this.currentPlayer = Player.None;
-				}
-				else
-				{
-					if (this.currentPlayer == Player.X)
-					{
-						this.currentPlayer = Player.O;
-					}
-					else
-					{
-						this.currentPlayer = Player.X;
-					}
-				}
+				this.currentPlayer = this.winningPlayer != Player.None ? Player.None :
+					this.currentPlayer == Player.X ? Player.O : Player.X;
 			}
 			catch (InvalidMoveException)
 			{
@@ -345,21 +332,8 @@ namespace Quixo.Framework
 			}
 		}
 
-		private int GetEndPoint(Point source, Point destination)
-		{
-			var endPoint = int.MinValue;
-
-			if (source.X == destination.X)
-			{
-				endPoint = destination.Y;
-			}
-			else
-			{
-				endPoint = destination.X;
-			}
-
-			return endPoint;
-		}
+		private int GetEndPoint(Point source, Point destination) =>
+			source.X == destination.X ? destination.Y : destination.X;
 
 		private bool CanCurrentPlayerUseSource(Point source)
 		{

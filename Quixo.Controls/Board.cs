@@ -48,7 +48,7 @@ namespace Quixo.Controls
 			// 
 			this.BackColor = Color.FromArgb(0, 64, 64);
 			this.Name = "Board";
-			this.Size = new System.Drawing.Size(600, 504);
+			this.Size = new Size(600, 504);
 
 		}
 		#endregion
