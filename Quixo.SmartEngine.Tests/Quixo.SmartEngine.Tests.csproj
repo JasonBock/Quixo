@@ -1,29 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
     <Company>jasonbock.net</Company>
     <Copyright>Copyright 2018</Copyright>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <FileVersion>3.0.0.0</FileVersion>
     <Authors>Jason Bock</Authors>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
-    <PackageReference Include="NUnit" Version="3.9.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />
     <ProjectReference Include="..\Quixo.Engine\Quixo.Engine.csproj" />
     <ProjectReference Include="..\Quixo.SmartEngine\Quixo.SmartEngine.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="BadMove0.2.0.1.quixo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -53,5 +48,4 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>

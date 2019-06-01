@@ -1,7 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyTitle>Quixo.Framework</AssemblyTitle>
@@ -12,14 +11,9 @@
     <Copyright>Copyright 2018</Copyright>
     <Description>UI controls that represent the Quixo game.</Description>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />
     <ProjectReference Include="..\Quixo.Engine\Quixo.Engine.csproj" />
     <ProjectReference Include="..\Quixo.SmartEngine\Quixo.SmartEngine.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
 </Project>

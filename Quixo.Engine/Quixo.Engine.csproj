@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyTitle>Quixo.Framework</AssemblyTitle>
@@ -12,7 +11,6 @@
     <Copyright>Copyright 2018</Copyright>
     <Description>Defines interfaces and handlers to use engines in a game.</Description>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />
   </ItemGroup>
