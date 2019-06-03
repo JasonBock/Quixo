@@ -16,6 +16,10 @@ namespace Quixo.SmartEngine
 
 		private string directory;
 
+		public AlphaBetaPruningEngine(TextWriter debugWriter)
+			: base(debugWriter) =>
+			this.directory = Directory.GetCurrentDirectory();
+
 		// TODO (4/15/2005) Need a way to clean out old debug files.
 		public AlphaBetaPruningEngine(string directory) => 
 			this.directory = directory;

@@ -1,4 +1,5 @@
 using Quixo.Engine;
+using Quixo.SmartEngine;
 using System;
 using System.Collections;
 using System.ComponentModel;
@@ -10,7 +11,6 @@ namespace Quixo.Controls
 	public sealed class ResetOptions : Form
 	{
 		public const string Human = "Human";
-		private ArrayList engines = null;
 		private IEngine playerX = null;
 		private IEngine playerO = null;
 		private TextBox debugText = null;
@@ -139,11 +139,11 @@ namespace Quixo.Controls
 			this.playerXList.Items.Add(Human);
 			this.playerOList.Items.Add(Human);
 
-			this.playerXList.Items.Add("Quixo.Engine.RandomEngine");
-			this.playerOList.Items.Add("Quixo.Engine.RandomEngine");
+			this.playerXList.Items.Add(typeof(RandomEngine).AssemblyQualifiedName);
+			this.playerOList.Items.Add(typeof(RandomEngine).AssemblyQualifiedName);
 
-			this.playerXList.Items.Add("Quixo.SmartEngine.AlphaBetaPruningEngine");
-			this.playerOList.Items.Add("Quixo.SmartEngine.AlphaBetaPruningEngine");
+			this.playerXList.Items.Add(typeof(AlphaBetaPruningEngine).AssemblyQualifiedName);
+			this.playerOList.Items.Add(typeof(AlphaBetaPruningEngine).AssemblyQualifiedName);
 		}
 
 		private void OnCancelButtonClick(object sender, EventArgs e)
@@ -165,14 +165,14 @@ namespace Quixo.Controls
 				}
 				else
 				{
-					if (playerXDescription.Equals(Human) == false && this.engines != null)
+					if (!playerXDescription.Equals(Human))
 					{
-						this.playerX = (IEngine)Activator.CreateInstance(this.engines[this.playerXList.SelectedIndex - 1] as Type,
+						this.playerX = (IEngine)Activator.CreateInstance(Type.GetType(playerXDescription),
 							 new object[] { new DebugTextWriter(this.debugText) });
 					}
-					else if (playerODescription.Equals(Human) == false && this.engines != null)
+					else if (!playerODescription.Equals(Human))
 					{
-						this.playerO = (IEngine)Activator.CreateInstance(this.engines[this.playerOList.SelectedIndex - 1] as Type,
+						this.playerO = (IEngine)Activator.CreateInstance(Type.GetType(playerODescription),
 							 new object[] { new DebugTextWriter(this.debugText) });
 					}
 
