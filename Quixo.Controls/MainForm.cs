@@ -1,13 +1,8 @@
 using QF = Quixo.Framework;
-using Quixo.Controls;
 using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
 namespace Quixo.Controls

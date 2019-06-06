@@ -153,11 +153,9 @@ namespace Quixo.Framework.Tests
 
 		private static void UpdateStates(Player[,] states, Point[] xPieces, Point[] oPieces)
 		{
-			int x = 0, y = 0;
-
-			for (x = 0; x < Board.Dimension; x++)
+			for (var x = 0; x < Board.Dimension; x++)
 			{
-				for (y = 0; y < Board.Dimension; y++)
+				for (var y = 0; y < Board.Dimension; y++)
 				{
 					states[x, y] = Player.None;
 				}
@@ -165,7 +163,7 @@ namespace Quixo.Framework.Tests
 
 			if (xPieces != null)
 			{
-				for (x = 0; x < xPieces.Length; x++)
+				for (var x = 0; x < xPieces.Length; x++)
 				{
 					states[xPieces[x].X, xPieces[x].Y] = Player.X;
 				}
@@ -173,7 +171,7 @@ namespace Quixo.Framework.Tests
 
 			if (oPieces != null)
 			{
-				for (y = 0; y < oPieces.Length; y++)
+				for (var y = 0; y < oPieces.Length; y++)
 				{
 					states[oPieces[y].X, oPieces[y].Y] = Player.O;
 				}

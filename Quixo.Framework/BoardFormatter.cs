@@ -96,10 +96,8 @@ namespace Quixo.Framework
 				moves.Add($"{move.Source.X},{move.Source.Y}:{move.Destination.X},{move.Destination.Y}");
 			}
 
-			using (var writer = new StreamWriter(serializationStream))
-			{
-				writer.Write(string.Join("|", moves.ToArray()));
-			}
+			using var writer = new StreamWriter(serializationStream);
+			writer.Write(string.Join("|", moves.ToArray()));
 		}
 
 		public SerializationBinder Binder

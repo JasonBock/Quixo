@@ -14,8 +14,7 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public static void RoundTripWithBinary()
 		{
-			MemoryStream outStream = null, inStream = null;
-			Board board = new Board(), newBoard = null;
+			var board = new Board();
 
 			board.MovePiece(new Point(0, 0), new Point(0, 4));
 			board.MovePiece(new Point(4, 0), new Point(4, 4));
@@ -24,10 +23,10 @@ namespace Quixo.Framework.Tests
 			board.MovePiece(new Point(0, 0), new Point(0, 4));
 
 			var formatter = new BinaryFormatter();
-			outStream = new MemoryStream();
+			var outStream = new MemoryStream();
 			formatter.Serialize(outStream, board);
-			inStream = new MemoryStream(outStream.ToArray());
-			newBoard = (Board)formatter.Deserialize(inStream);
+			var inStream = new MemoryStream(outStream.ToArray());
+			var newBoard = (Board)formatter.Deserialize(inStream);
 
 			Assert.IsNotNull(newBoard, "The new board is null.");
 			Assert.AreEqual(5, newBoard.Moves.Count, "The move history is incorrect.");
@@ -53,8 +52,7 @@ namespace Quixo.Framework.Tests
 		[Test]
 		public static void RoundTripWithCustomFormatter()
 		{
-			MemoryStream outStream = null, inStream = null;
-			Board board = new Board(), newBoard = null;
+			var board = new Board();
 
 			board.MovePiece(new Point(0, 0), new Point(0, 4));
 			board.MovePiece(new Point(4, 0), new Point(4, 4));
@@ -63,10 +61,10 @@ namespace Quixo.Framework.Tests
 			board.MovePiece(new Point(0, 0), new Point(0, 4));
 
 			var boardFormatter = new BoardFormatter();
-			outStream = new MemoryStream();
+			var outStream = new MemoryStream();
 			boardFormatter.Serialize(outStream, board);
-			inStream = new MemoryStream(outStream.ToArray());
-			newBoard = (Board)boardFormatter.Deserialize(inStream);
+			var inStream = new MemoryStream(outStream.ToArray());
+			var newBoard = (Board)boardFormatter.Deserialize(inStream);
 
 			Assert.IsNotNull(newBoard, "The new board is null.");
 			Assert.AreEqual(5, newBoard.Moves.Count, "The move history is incorrect.");

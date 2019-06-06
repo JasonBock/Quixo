@@ -165,8 +165,7 @@ namespace Quixo.Framework
 		{
 			var points = new List<Point>();
 
-			int x = 0, y = 0;
-
+			int x;
 			for (x = 1; x < Dimension; x++)
 			{
 				if (this.GetPiece(x, 0) == this.currentPlayer ||
@@ -176,6 +175,7 @@ namespace Quixo.Framework
 				}
 			}
 
+			int y;
 			for (y = 1; y < Dimension; y++)
 			{
 				if (this.GetPiece(Dimension - 1, y) == this.currentPlayer ||
@@ -216,8 +216,6 @@ namespace Quixo.Framework
 		private void UpdateBoard(Point source, Point destination)
 		{
 			var newValue = this.currentPlayer;
-
-			int sweep = 0, startPoint = 0, endPoint = 0;
 			var isXFixed = source.X == destination.X;
 			var fixedValue = (source.X == destination.X) ? source.X : source.Y;
 
@@ -238,9 +236,9 @@ namespace Quixo.Framework
 				nextPieceOp = new NextPieceOperator(this.NextPieceForward);
 			}
 
-			startPoint = isXFixed ? source.Y : source.X;
-			endPoint = isXFixed ? destination.Y : destination.X;
-
+			var startPoint = isXFixed ? source.Y : source.X;
+			var endPoint = isXFixed ? destination.Y : destination.X;
+			int sweep;
 			for (sweep = startPoint; checkOp(sweep, endPoint); loopOp(ref sweep))
 			{
 				if (isXFixed == true)

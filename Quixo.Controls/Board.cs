@@ -19,7 +19,7 @@ namespace Quixo.Controls
 
 		private QF.Board board = null;
 		private bool moveGenerationInProgress;
-		private BackgroundWorker moveWorker;
+		private readonly BackgroundWorker moveWorker;
 		private Piece[,] pieces = new Piece[QF.Board.Dimension, QF.Board.Dimension];
 		private IEngine playerX = null;
 		private IEngine playerO = null;
@@ -229,7 +229,7 @@ namespace Quixo.Controls
 			if ((this.board.CurrentPlayer == QF.Player.O && this.playerO != null) ||
 				 (this.board.CurrentPlayer == QF.Player.X && this.playerX != null))
 			{
-				var nextMoveEngine = (this.playerX != null) ? this.playerX : ((this.playerO != null) ? this.playerO : null);
+				var nextMoveEngine = this.playerX ?? (this.playerO ?? null);
 
 				if (nextMoveEngine != null)
 				{
