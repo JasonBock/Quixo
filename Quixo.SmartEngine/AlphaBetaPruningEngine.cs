@@ -35,7 +35,6 @@ namespace Quixo.SmartEngine
 			moveDocument.AppendChild(movesNode);
 
 			var bestValue = int.MinValue;
-			var possibleBestValue = int.MinValue;
 			Move generatedMove = null;
 
 			foreach(var source in board.GetValidSourcePieces())
@@ -57,7 +56,7 @@ namespace Quixo.SmartEngine
 					var nextMoveBoard = ((Board)board.Clone());
 					nextMoveBoard.MovePiece(source, destination);
 
-					possibleBestValue = this.MinimaxAB(nextMoveBoard, board.CurrentPlayer, false, 1,
+					var possibleBestValue = this.MinimaxAB(nextMoveBoard, board.CurrentPlayer, false, 1,
 						int.MinValue, int.MaxValue, moveNode);
 
 					moveValue = moveDocument.CreateAttribute("Value");
