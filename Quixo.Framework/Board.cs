@@ -165,8 +165,7 @@ namespace Quixo.Framework
 		{
 			var points = new List<Point>();
 
-			int x;
-			for (x = 1; x < Dimension; x++)
+			for (var x = 1; x < Dimension; x++)
 			{
 				if (this.GetPiece(x, 0) == this.currentPlayer ||
 					 this.GetPiece(x, 0) == Player.None)
@@ -175,8 +174,7 @@ namespace Quixo.Framework
 				}
 			}
 
-			int y;
-			for (y = 1; y < Dimension; y++)
+			for (var y = 1; y < Dimension; y++)
 			{
 				if (this.GetPiece(Dimension - 1, y) == this.currentPlayer ||
 					 this.GetPiece(Dimension - 1, y) == Player.None)
@@ -185,7 +183,7 @@ namespace Quixo.Framework
 				}
 			}
 
-			for (x = Dimension - 2; x >= 0; x--)
+			for (var x = Dimension - 2; x >= 0; x--)
 			{
 				if (this.GetPiece(x, Dimension - 1) == this.currentPlayer ||
 					 this.GetPiece(x, Dimension - 1) == Player.None)
@@ -194,7 +192,7 @@ namespace Quixo.Framework
 				}
 			}
 
-			for (y = Dimension - 2; y >= 0; y--)
+			for (var y = Dimension - 2; y >= 0; y--)
 			{
 				if (this.GetPiece(0, y) == this.currentPlayer ||
 					 this.GetPiece(0, y) == Player.None)
@@ -238,8 +236,8 @@ namespace Quixo.Framework
 
 			var startPoint = isXFixed ? source.Y : source.X;
 			var endPoint = isXFixed ? destination.Y : destination.X;
-			int sweep;
-			for (sweep = startPoint; checkOp(sweep, endPoint); loopOp(ref sweep))
+
+			for (var sweep = startPoint; checkOp(sweep, endPoint); loopOp(ref sweep))
 			{
 				if (isXFixed == true)
 				{

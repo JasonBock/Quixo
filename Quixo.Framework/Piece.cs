@@ -9,11 +9,8 @@ namespace Quixo.Framework
 	[Serializable]
 	public sealed class Piece
 	{
-		public Piece(Point position, Player player)
-		{
-			this.Position = position;
-			this.Player = player;
-		}
+		public Piece(Point position, Player player) =>
+			(this.Position, this.Player) = (position, player);
 
 		/// <summary>
 		/// Gets the location of the <see cref="Piece"/>.
