@@ -3,7 +3,6 @@ using Quixo.Framework;
 using System;
 using System.IO;
 using System.Threading;
-using System.Xml;
 
 namespace Quixo.SmartEngine
 {
@@ -26,14 +25,6 @@ namespace Quixo.SmartEngine
 
 		public override Move GenerateMove(Board board, ManualResetEvent cancel)
 		{
-			XmlDocument moveDocument = null;
-			XmlNode movesNode = null, moveNode = null;
-			XmlAttribute movePlayerNode = null, moveSourceNode = null, moveDestinationNode = null, moveValue = null;
-
-			moveDocument = new XmlDocument();
-			movesNode = moveDocument.CreateElement("PotentialMoves");
-			moveDocument.AppendChild(movesNode);
-
 			var bestValue = int.MinValue;
 			Move generatedMove = null;
 
@@ -41,27 +32,11 @@ namespace Quixo.SmartEngine
 			{
 				foreach(var destination in board.GetValidDestinationPieces(source))
 				{
-					moveNode = moveDocument.CreateElement("Move");
-					movesNode.AppendChild(moveNode);
-					movePlayerNode = moveDocument.CreateAttribute("Player");
-					moveNode.Attributes.Append(movePlayerNode);
-					movePlayerNode.Value = board.CurrentPlayer.ToString();
-					moveSourceNode = moveDocument.CreateAttribute("Source");
-					moveNode.Attributes.Append(moveSourceNode);
-					moveSourceNode.Value = source.ToString();
-					moveDestinationNode = moveDocument.CreateAttribute("Destination");
-					moveNode.Attributes.Append(moveDestinationNode);
-					moveDestinationNode.Value = destination.ToString();
-
 					var nextMoveBoard = ((Board)board.Clone());
 					nextMoveBoard.MovePiece(source, destination);
 
 					var possibleBestValue = this.MinimaxAB(nextMoveBoard, board.CurrentPlayer, false, 1,
-						int.MinValue, int.MaxValue, moveNode);
-
-					moveValue = moveDocument.CreateAttribute("Value");
-					moveNode.Attributes.Append(moveValue);
-					moveValue.Value = possibleBestValue.ToString();
+						int.MinValue, int.MaxValue);
 
 					if(possibleBestValue > bestValue || (possibleBestValue >= bestValue && generatedMove == null))
 					{
@@ -70,9 +45,6 @@ namespace Quixo.SmartEngine
 					}
 				}
 			}
-
-			var moveFileName = $"{Guid.NewGuid().ToString("n")}.xml";
-			moveDocument.Save(Path.Combine(this.directory, moveFileName));
 
 			if(this.debugWriter != null)
 			{
@@ -89,11 +61,8 @@ namespace Quixo.SmartEngine
 			return generatedMove;
 		}
 
-		private int MinimaxAB(Board board, Player currentPlayer, bool isMax, int depth, int alpha, int beta, XmlNode parentMoveNode)
+		private int MinimaxAB(Board board, Player currentPlayer, bool isMax, int depth, int alpha, int beta)
 		{
-			XmlNode moveNode = null;
-			XmlAttribute movePlayerNode = null, moveSourceNode = null, moveDestinationNode = null, moveValue = null;
-
 			var evaluation = 0;
 
 			if(depth >= DepthLimit || board.WinningPlayer != Player.None)
@@ -117,27 +86,11 @@ namespace Quixo.SmartEngine
 				{
 					foreach(var destination in board.GetValidDestinationPieces(source))
 					{
-						moveNode = parentMoveNode.OwnerDocument.CreateElement("Move");
-						parentMoveNode.AppendChild(moveNode);
-						movePlayerNode = parentMoveNode.OwnerDocument.CreateAttribute("Player");
-						moveNode.Attributes.Append(movePlayerNode);
-						movePlayerNode.Value = board.CurrentPlayer.ToString();
-						moveSourceNode = parentMoveNode.OwnerDocument.CreateAttribute("Source");
-						moveNode.Attributes.Append(moveSourceNode);
-						moveSourceNode.Value = source.ToString();
-						moveDestinationNode = parentMoveNode.OwnerDocument.CreateAttribute("Destination");
-						moveNode.Attributes.Append(moveDestinationNode);
-						moveDestinationNode.Value = destination.ToString();
-
 						var nextMoveBoard = (Board)board.Clone();
 						nextMoveBoard.MovePiece(source, destination);
 
 						var newDepth = depth;
-						nextEvaluation = this.MinimaxAB(nextMoveBoard, currentPlayer, !isMax, ++newDepth, alpha, beta, moveNode);
-
-						moveValue = parentMoveNode.OwnerDocument.CreateAttribute("Value");
-						moveNode.Attributes.Append(moveValue);
-						moveValue.Value = nextEvaluation.ToString();
+						nextEvaluation = this.MinimaxAB(nextMoveBoard, currentPlayer, !isMax, ++newDepth, alpha, beta);
 
 						if(alpha > beta)
 						{
