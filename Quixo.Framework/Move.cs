@@ -9,21 +9,14 @@ namespace Quixo.Framework
 	[Serializable]
 	public sealed class Move
 	{
-		private const string PassFormat = "Player {0}: Passed";
-		private const string MoveFormat = "Player {0}: {1} to {2}";
-
-		private Player player = Player.None;
+		private readonly Player player = Player.None;
 		private Point source = Point.Empty;
 		private Point destination = Point.Empty;
 
-		public Move(Player player, Point source, Point destination)
-		{
-			this.player = player;
-			this.source = source;
-			this.destination = destination;
-		}
+		public Move(Player player, Point source, Point destination) =>
+			(this.player, this.source, this.destination) = (player, source, destination);
 
-		public string Print() => string.Format(MoveFormat, this.player, this.source, this.destination);
+		public string Print() => $"Player {this.player}: {this.source} to {this.destination}";
 
 		public Point Destination => this.destination;
 

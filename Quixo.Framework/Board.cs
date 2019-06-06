@@ -19,7 +19,6 @@ namespace Quixo.Framework
 		private const string ErrorInternalPiece = "Only the outer pieces can be moved.";
 		private const string ErrorInvalidSourcePiece = "The player {0} cannot move the piece at position {1}.";
 		private const string ErrorInvalidDestinationPosition = "The player {0} cannot move a piece to position {1}.";
-		private const string ErrorMoveCausesOpponentToWin = "The current move, {0} to {1}, would allow the opponent to win.";
 		private const string ErrorWinner = "The game has been won by {0} - no more moves can be made.";
 
 		private delegate void AdjustLoopOperator(ref int sweep);
@@ -400,7 +399,7 @@ namespace Quixo.Framework
 			private const string ErrorInvalidLineCount = "The line count should be {0} but it was {1}.";
 			private static readonly int WinningLineCount = (Board.Dimension * 2) + 2;
 
-			private Board board = null;
+			private readonly Board board = null;
 			private int blankCount = 0;
 			private int xCount = 0;
 			private int oCount = 0;

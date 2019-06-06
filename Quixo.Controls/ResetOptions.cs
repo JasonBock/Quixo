@@ -21,7 +21,7 @@ namespace Quixo.Controls
 		private Button cancelButton;
 		private ListBox playerOList;
 		private Label playerOLabel;
-		private Container components = null;
+		private readonly Container components = null;
 
 		public ResetOptions()
 		{

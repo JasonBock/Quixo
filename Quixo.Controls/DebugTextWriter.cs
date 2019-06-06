@@ -7,7 +7,7 @@ namespace Quixo.Controls
 {
 	internal sealed class DebugTextWriter : TextWriter
 	{
-		private TextBox debugText = null;
+		private readonly TextBox debugText = null;
 
 		public DebugTextWriter(TextBox debugText)
 			: base() => this.debugText = debugText;

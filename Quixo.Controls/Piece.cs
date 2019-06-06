@@ -16,9 +16,9 @@ namespace Quixo.Controls
 
 		public EventHandler Selected;
 
-		private Container components = null;
+		private readonly Container components = null;
 		private SelectedState currentSelectedState = SelectedState.None;
-		private QF.Piece piece = null;
+		private readonly QF.Piece piece = null;
 		private QF.Player currentPlayer = QF.Player.None;
 
 		private Piece() : base() { }
