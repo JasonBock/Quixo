@@ -14,6 +14,8 @@
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>Quixo.Entry</StartupObject>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />

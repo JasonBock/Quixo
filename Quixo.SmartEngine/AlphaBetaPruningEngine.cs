@@ -1,6 +1,5 @@
 using Quixo.Engine;
 using Quixo.Framework;
-using System;
 using System.IO;
 using System.Threading;
 
@@ -13,15 +12,8 @@ namespace Quixo.SmartEngine
 		private const int LosingLine = int.MinValue;
 		private const int WinningLine = int.MaxValue;
 
-		private string directory;
-
 		public AlphaBetaPruningEngine(TextWriter debugWriter)
-			: base(debugWriter) =>
-			this.directory = Directory.GetCurrentDirectory();
-
-		// TODO (4/15/2005) Need a way to clean out old debug files.
-		public AlphaBetaPruningEngine(string directory) => 
-			this.directory = directory;
+			: base(debugWriter) { }
 
 		public override Move GenerateMove(Board board, ManualResetEvent cancel)
 		{
@@ -127,9 +119,8 @@ namespace Quixo.SmartEngine
 
 		private int Evaluate(Board board, Player currentPlayer)
 		{
-			var evaluation = 0;
-
-			if(board.WinningPlayer != Player.None)
+			int evaluation;
+			if (board.WinningPlayer != Player.None)
 			{
 				if(board.WinningPlayer == currentPlayer)
 				{
