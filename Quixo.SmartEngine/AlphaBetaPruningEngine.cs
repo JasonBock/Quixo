@@ -12,6 +12,9 @@ namespace Quixo.SmartEngine
 		private const int LosingLine = int.MinValue;
 		private const int WinningLine = int.MaxValue;
 
+		public AlphaBetaPruningEngine()
+			: base() { }
+
 		public AlphaBetaPruningEngine(TextWriter debugWriter)
 			: base(debugWriter) { }
 

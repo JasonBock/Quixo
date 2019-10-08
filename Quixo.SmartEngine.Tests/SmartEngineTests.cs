@@ -24,7 +24,7 @@ namespace Quixo.SmartEngine.Tests
 			}
 
 			//  The next move causes a crash!
-			var engine = new AlphaBetaPruningEngine(null);
+			var engine = new AlphaBetaPruningEngine();
 			var nextMove = engine.GenerateMove(board.Clone() as Board, new ManualResetEvent(false));
 			board.MovePiece(nextMove.Source, nextMove.Destination);
 		}
@@ -44,7 +44,7 @@ namespace Quixo.SmartEngine.Tests
 			board.Undo(4);
 
 			//  At move #23, why doesn't O respond with {0, 1} to {4, 1}?
-			var engine = new AlphaBetaPruningEngine(null);
+			var engine = new AlphaBetaPruningEngine();
 			var nextMove = engine.GenerateMove(board.Clone() as Board, new ManualResetEvent(false));
 
 			Assert.AreEqual(new Point(0, 1), nextMove.Source, "The source is invalid.");
@@ -66,7 +66,7 @@ namespace Quixo.SmartEngine.Tests
 			board.Undo();
 
 			// For some reason, 0.2.0.3 doesn't catch that (1, 4) to (1, 0) would win...
-			var engine = new AlphaBetaPruningEngine(null);
+			var engine = new AlphaBetaPruningEngine();
 			var nextMove = engine.GenerateMove(board.Clone() as Board, new ManualResetEvent(false));
 
 			Assert.AreEqual(new Point(1, 4), nextMove.Source, "The source is invalid.");
@@ -89,7 +89,7 @@ namespace Quixo.SmartEngine.Tests
 
 			// For some reason, 0.2.0.2 thinks that every next move is a losing move... :S
 			// and I think it's right - it's in a position that every move would lead to a losing move.
-			var engine = new AlphaBetaPruningEngine(null);
+			var engine = new AlphaBetaPruningEngine();
 			var nextMove = engine.GenerateMove(board.Clone() as Board, new ManualResetEvent(false));
 
 			Assert.IsFalse((nextMove.Source == new Point(2, 0) && nextMove.Destination == new Point(2, 4)), "The next move is invalid.");
@@ -109,7 +109,7 @@ namespace Quixo.SmartEngine.Tests
 
 			board.Undo(2);
 
-			var engine = new AlphaBetaPruningEngine(null);
+			var engine = new AlphaBetaPruningEngine();
 			var nextMove = engine.GenerateMove(board.Clone() as Board, new ManualResetEvent(false));
 
 			Assert.IsFalse((nextMove.Source == new Point(1, 0) && nextMove.Destination == new Point(0, 0)), "The next move is invalid.");
