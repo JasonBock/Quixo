@@ -1,19 +1,14 @@
-using System;
-using System.IO;
-using System.Threading;
+using Quixo.Framework;
 
-namespace Quixo.Engine
+namespace Quixo.Engine;
+
+public abstract class BaseEngine
+	: IEngine
 {
-   public abstract class BaseEngine
-		: IEngine
-	{
-		protected TextWriter debugWriter = null;
+	private readonly TextWriter debugWriter;
 
-		protected BaseEngine() : base() { }
+	protected BaseEngine(TextWriter debugWriter)
+		: base() => this.debugWriter = debugWriter ?? throw new ArgumentNullException(nameof(debugWriter));
 
-		public BaseEngine(TextWriter debugWriter)
-			: this() => this.debugWriter = debugWriter ?? throw new ArgumentNullException(nameof(debugWriter));
-
-		public abstract Move GenerateMove(Board board, ManualResetEvent cancel);
-	}
+	public abstract Move GenerateMove(Board board, ManualResetEvent cancel);
 }

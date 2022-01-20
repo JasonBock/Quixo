@@ -1,54 +1,60 @@
-using System;
-using System.Drawing;
-using System.Threading;
 using NUnit.Framework;
+using Quixo.Framework;
+using System.Drawing;
 
-namespace Quixo.Engine.Tests
+namespace Quixo.Engine.Tests;
+
+public static class EngineTests
 {
-   [TestFixture]
-	public static class EngineTests
+	[Test]
+	public static void UseGoodEngine()
 	{
-		[Test]
-		public static void UseGoodEngine()
-		{
-			var goodEngine = new RandomEngine();
+		using var writer = new StringWriter();
+		var goodEngine = new RandomEngine(writer);
 
-			var board = new Board();
-			Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
-			board.MovePiece(new Point(0, 0), new Point(0, 4));
-			Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
-			var engineMove = goodEngine.GenerateMove(board, new ManualResetEvent(false));
+		var board = new Board();
+		Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
+		board.MovePiece(new Point(0, 0), new Point(0, 4));
+		Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
 
-			Assert.AreEqual(Player.O, engineMove.Player, "The player after the generated move is invalid.");
-			board.MovePiece(engineMove.Source, engineMove.Destination);
+		using var cancel = new ManualResetEvent(false);
+		var engineMove = goodEngine.GenerateMove(board, cancel);
 
-			Assert.AreEqual(Player.X, board.CurrentPlayer, "The player after the generated move was performed is invalid.");
-		}
+		Assert.AreEqual(Player.O, engineMove.Player, "The player after the generated move is invalid.");
+		board.MovePiece(engineMove.Source, engineMove.Destination);
 
-		[Test]
-		public static void UseBadNullEngine()
-		{
-			var badNullEngine = new BadNullTestEngine();
+		Assert.AreEqual(Player.X, board.CurrentPlayer, "The player after the generated move was performed is invalid.");
+	}
 
-			var board = new Board();
-			Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
-			board.MovePiece(new Point(0, 0), new Point(0, 4));
-			Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
-			var engineMove = badNullEngine.GenerateMove(board, new ManualResetEvent(false));
-			Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<NullReferenceException>());
-		}
+	[Test]
+	public static void UseBadNullEngine()
+	{
+		using var writer = new StringWriter();
+		var badNullEngine = new BadNullTestEngine(writer);
 
-		[Test]
-		public static void UseBadMoveEngine()
-		{
-			var badMoveEngine = new BadMoveTestEngine();
+		var board = new Board();
+		Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
+		board.MovePiece(new Point(0, 0), new Point(0, 4));
+		Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
 
-			var board = new Board();
-			Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
-			board.MovePiece(new Point(0, 0), new Point(0, 4));
-			Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
-			var engineMove = badMoveEngine.GenerateMove(board, new ManualResetEvent(false));
-			Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<InvalidMoveException>());
-		}
+		using var cancel = new ManualResetEvent(false);
+		var engineMove = badNullEngine.GenerateMove(board, cancel);
+		Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<NullReferenceException>());
+	}
+
+	[Test]
+	public static void UseBadMoveEngine()
+	{
+		using var writer = new StringWriter();
+		var badMoveEngine = new BadMoveTestEngine(writer);
+
+		var board = new Board();
+		Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
+		board.MovePiece(new Point(0, 0), new Point(0, 4));
+		Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
+
+		using var cancel = new ManualResetEvent(false);
+		var engineMove = badMoveEngine.GenerateMove(board, cancel);
+		Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<InvalidMoveException>());
 	}
 }

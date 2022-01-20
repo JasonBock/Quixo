@@ -1,18 +1,25 @@
+using Quixo.Framework;
 using System.Drawing;
-using System.Threading;
 
-namespace Quixo.Engine.Tests
+namespace Quixo.Engine.Tests;
+
+public class BadNullTestEngine
+	: BaseEngine
 {
-   public class BadNullTestEngine
-		: BaseEngine
-	{
-		public override Move GenerateMove(Board board, ManualResetEvent cancel) => null;
-	}
+	public BadNullTestEngine(TextWriter debugWriter)
+		: base(debugWriter) { }
 
-	public class BadMoveTestEngine
-		: BaseEngine
-	{
-		public override Move GenerateMove(Board board, ManualResetEvent cancel) => 
-			new Move(board.CurrentPlayer, new Point(0, 0), new Point(0, 0));
-	}
+	public override Move GenerateMove(Board board, ManualResetEvent cancel) => null!;
+}
+
+public class BadMoveTestEngine
+	: BaseEngine
+{
+	public BadMoveTestEngine(TextWriter debugWriter)
+		: base(debugWriter) { }
+
+	public override Move GenerateMove(Board board, ManualResetEvent cancel) =>
+#pragma warning disable CA1062 // Validate arguments of public methods
+		new(board.CurrentPlayer, new Point(0, 0), new Point(0, 0));
+#pragma warning restore CA1062 // Validate arguments of public methods
 }

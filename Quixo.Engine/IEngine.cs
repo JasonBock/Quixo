@@ -1,9 +1,8 @@
-using System.Threading;
+using Quixo.Framework;
 
-namespace Quixo.Engine
+namespace Quixo.Engine;
+
+public interface IEngine
 {
-   public interface IEngine
-	{
-		Move GenerateMove(Board board, ManualResetEvent cancel);
-	}
+	Move GenerateMove(Board board, ManualResetEvent cancel);
 }
