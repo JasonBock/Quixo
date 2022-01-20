@@ -5,7 +5,6 @@ using NUnit.Framework;
 
 namespace Quixo.Framework.Tests;
 
-[TestFixture]
 public static class BoardSerializationTests
 {
 	[Test]
@@ -25,10 +24,13 @@ public static class BoardSerializationTests
 		using var inStream = new MemoryStream(outStream.ToArray());
 		var newBoard = (Board)boardFormatter.Deserialize(inStream);
 
-		Assert.IsNotNull(newBoard, "The new board is null.");
-		Assert.AreEqual(5, newBoard.Moves.Count, "The move history is incorrect.");
-		Assert.AreEqual(Player.O, newBoard.CurrentPlayer, "The current player is incorrect.");
-		Assert.AreEqual(Player.None, newBoard.WinningPlayer, "The winning player is incorrect.");
+		Assert.Multiple(() =>
+		{
+			Assert.That(newBoard, Is.Not.Null, "The new board is null.");
+			Assert.That(newBoard.Moves.Count, Is.EqualTo(5), "The move history is incorrect.");
+			Assert.That(newBoard.CurrentPlayer, Is.EqualTo(Player.O), "The current player is incorrect.");
+			Assert.That(newBoard.WinningPlayer, Is.EqualTo(Player.None), "The winning player is incorrect.");
+		});
 	}
 
 	[Test]
@@ -39,7 +41,7 @@ public static class BoardSerializationTests
 		using var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
 		var board = (Board)formatter.Deserialize(stream);
-		Assert.AreEqual(3, board.Moves.Count);
+		Assert.That(board.Moves.Count, Is.EqualTo(3));
 	}
 
 	[Test]
@@ -47,14 +49,14 @@ public static class BoardSerializationTests
 	{
 		var board = "0,0:0,4|4,0:4,4|0,0:0,4";
 		var formatter = new BoardFormatter();
-		Assert.Throws<ArgumentException>(() => formatter.Serialize(new MemoryStream(), board));
+		Assert.That(() => formatter.Serialize(new MemoryStream(), board), Throws.TypeOf<ArgumentException>());
 	}
 
 	[Test]
 	public static void SerializeWithNullBoard()
 	{
 		var formatter = new BoardFormatter();
-		Assert.Throws<ArgumentNullException>(() => formatter.Serialize(new MemoryStream(), null!));
+		Assert.That(() => formatter.Serialize(new MemoryStream(), null!), Throws.TypeOf<ArgumentNullException>());
 	}
 
 	[Test]
@@ -62,7 +64,7 @@ public static class BoardSerializationTests
 	{
 		var board = new Board();
 		var formatter = new BoardFormatter();
-		Assert.Throws<ArgumentNullException>(() => formatter.Serialize(null!, board));
+		Assert.That(() => formatter.Serialize(null!, board), Throws.TypeOf<ArgumentNullException>());
 	}
 
 	[Test]
@@ -72,7 +74,7 @@ public static class BoardSerializationTests
 		var formatter = new BoardFormatter();
 		using var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
-		Assert.Throws<ArgumentOutOfRangeException>(() => formatter.Deserialize(stream));
+		Assert.That(() => formatter.Deserialize(stream), Throws.TypeOf<ArgumentOutOfRangeException>());
 	}
 
 	[Test]
@@ -82,7 +84,7 @@ public static class BoardSerializationTests
 		var formatter = new BoardFormatter();
 		using var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
-		Assert.Throws<SerializationException>(() => formatter.Deserialize(stream));
+		Assert.That(() => formatter.Deserialize(stream), Throws.TypeOf<SerializationException>());
 	}
 
 	[Test]
@@ -92,7 +94,7 @@ public static class BoardSerializationTests
 		var formatter = new BoardFormatter();
 		using var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
-		Assert.Throws<SerializationException>(() => formatter.Deserialize(stream));
+		Assert.That(() => formatter.Deserialize(stream), Throws.TypeOf<SerializationException>());
 	}
 
 	[Test]
@@ -102,6 +104,6 @@ public static class BoardSerializationTests
 		var formatter = new BoardFormatter();
 		using var stream = new MemoryStream((new ASCIIEncoding()).GetBytes(boardData));
 
-		Assert.Throws<SerializationException>(() => formatter.Deserialize(stream));
+		Assert.That(() => formatter.Deserialize(stream), Throws.TypeOf<SerializationException>());
 	}
 }

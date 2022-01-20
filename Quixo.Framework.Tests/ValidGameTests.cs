@@ -4,7 +4,6 @@ using NUnit.Framework;
 namespace Quixo.Framework.Tests;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-[TestFixture]
 public static class ValidGameTests
 {
 	[Test]
@@ -139,16 +138,16 @@ public static class ValidGameTests
 		{
 			for (var y = 0; y < Board.Dimension; y++)
 			{
-				Assert.AreEqual(states[x, y], board.GetPiece(new Point(x, y)),
+				Assert.That(board.GetPiece(new Point(x, y)), Is.EqualTo(states[x, y]),
 					$"The state of the piece at ({x}, {y}) is incorrect.");
 			}
 		}
 
-		Assert.AreEqual(expectedWinner, board.WinningPlayer,
+		Assert.That(board.WinningPlayer, Is.EqualTo(expectedWinner),
 			"The winning player is incorrect.");
-		Assert.AreEqual(currentPlayer, board.CurrentPlayer,
+		Assert.That(board.CurrentPlayer, Is.EqualTo(currentPlayer),
 			"The current player is incorrect.");
-		Assert.AreEqual(moveHistoryCount, board.Moves.Count,
+		Assert.That(board.Moves.Count, Is.EqualTo(moveHistoryCount),
 			"The move history count is incorrect.");
 	}
 
@@ -181,7 +180,7 @@ public static class ValidGameTests
 
 	private static void MakeMove(Board board, ref Player player, Player[,] states, Point source, Point destination)
 	{
-		Assert.AreEqual(player, board.CurrentPlayer,
+		Assert.That(board.CurrentPlayer, Is.EqualTo(player),
 			"The current player before the move was made is incorrect.");
 
 		board.MovePiece(source, destination);
@@ -204,7 +203,7 @@ public static class ValidGameTests
 			}
 		}
 
-		Assert.AreEqual(player, board.CurrentPlayer,
+		Assert.That(board.CurrentPlayer, Is.EqualTo(player),
 			"The current player after the move was made is incorrect.");
 	}
 }

@@ -32,7 +32,7 @@ namespace Quixo.Controls
 		{
 			if (disposing)
 			{
-				if (this.components != null)
+				if (this.components is not null)
 				{
 					this.components.Dispose();
 				}
@@ -158,7 +158,7 @@ namespace Quixo.Controls
 				var playerXDescription = this.playerXList.SelectedItem as string;
 				var playerODescription = this.playerOList.SelectedItem as string;
 
-				if (playerXDescription.Equals(Human) == false && playerODescription.Equals(Human) == false)
+				if (!playerXDescription.Equals(Human) && !playerODescription.Equals(Human))
 				{
 					MessageBox.Show("One of the players must be a human.");
 				}

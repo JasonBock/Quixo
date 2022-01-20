@@ -30,9 +30,9 @@ namespace Quixo.Controls
 			this.InitializeComponent();
 			this.InitializeBoard(null, null, null);
 			this.moveWorker = new BackgroundWorker();
-			this.moveWorker.DoWork += 
+			this.moveWorker.DoWork +=
 				new DoWorkEventHandler(this.OnMoveWorkerDoWork);
-			this.moveWorker.RunWorkerCompleted += 
+			this.moveWorker.RunWorkerCompleted +=
 				new RunWorkerCompletedEventHandler(this.OnMoveWorkerRunWorkerCompleted);
 		}
 
@@ -57,13 +57,13 @@ namespace Quixo.Controls
 		{
 			int x = 0, y = 0;
 
-			if (this.pieces != null)
+			if (this.pieces is not null)
 			{
 				for (x = 0; x < QF.Board.Dimension; x++)
 				{
 					for (y = 0; y < QF.Board.Dimension; y++)
 					{
-						if (this.pieces[x, y] != null)
+						if (this.pieces[x, y] is not null)
 						{
 							this.Controls.Remove(this.pieces[x, y]);
 						}
@@ -75,7 +75,7 @@ namespace Quixo.Controls
 			this.playerX = playerX;
 			this.playerO = playerO;
 
-			if (board == null)
+			if (board is null)
 			{
 				this.board = new QF.Board();
 			}
@@ -115,7 +115,7 @@ namespace Quixo.Controls
 
 			if (this.board.WinningPlayer == QF.Player.None)
 			{
-				if (this.source != null)
+				if (this.source is not null)
 				{
 					validPieceChoices = this.board.GetValidDestinationPieces(this.source.RepresentedPiece.Position);
 				}
@@ -139,11 +139,11 @@ namespace Quixo.Controls
 					}
 					else
 					{
-						if (this.source != null && this.source.RepresentedPiece.Position.Equals(position) == true)
+						if (this.source is not null && this.source.RepresentedPiece.Position.Equals(position))
 						{
 							piece.CurrentSelectedState = Piece.SelectedState.Selected;
 						}
-						else if (validPieceChoices.Contains(position) == true)
+						else if (validPieceChoices.Contains(position))
 						{
 							piece.CurrentSelectedState = Piece.SelectedState.CanBeMoved;
 						}
@@ -166,7 +166,7 @@ namespace Quixo.Controls
 
 				if (piece.CurrentSelectedState == Piece.SelectedState.CanBeMoved)
 				{
-					if (this.source == null)
+					if (this.source is null)
 					{
 						this.source = piece;
 					}
@@ -183,7 +183,7 @@ namespace Quixo.Controls
 					this.source = null;
 				}
 
-				if (wasMoveMade == true)
+				if (wasMoveMade)
 				{
 					this.MoveMade?.Invoke(this, EventArgs.Empty);
 					this.CheckForMoveGeneration();
@@ -205,13 +205,13 @@ namespace Quixo.Controls
 			var newHeight = (this.ClientSize.Height - PieceHeightTotalSpacing) / 5;
 			var newSize = new Size(newWidth, newHeight);
 
-			if (this.pieces != null)
+			if (this.pieces is not null)
 			{
 				for (var x = 0; x < QF.Board.Dimension; x++)
 				{
 					for (var y = 0; y < QF.Board.Dimension; y++)
 					{
-						if (this.pieces[x, y] != null)
+						if (this.pieces[x, y] is not null)
 						{
 							this.pieces[x, y].Size = newSize;
 							var xCoord = (newSize.Width * x) + (PieceSpace * (x + 1));
@@ -226,12 +226,12 @@ namespace Quixo.Controls
 
 		private void CheckForMoveGeneration()
 		{
-			if ((this.board.CurrentPlayer == QF.Player.O && this.playerO != null) ||
-				 (this.board.CurrentPlayer == QF.Player.X && this.playerX != null))
+			if ((this.board.CurrentPlayer == QF.Player.O && this.playerO is not null) ||
+				 (this.board.CurrentPlayer == QF.Player.X && this.playerX is not null))
 			{
 				var nextMoveEngine = this.playerX ?? (this.playerO ?? null);
 
-				if (nextMoveEngine != null)
+				if (nextMoveEngine is not null)
 				{
 					this.moveGenerationInProgress = true;
 					this.moveWorker.RunWorkerAsync(nextMoveEngine);
@@ -269,7 +269,7 @@ namespace Quixo.Controls
 			{
 				var playerODescription = ResetOptions.Human;
 
-				if (this.playerO != null)
+				if (this.playerO is not null)
 				{
 					playerODescription = this.playerO.GetType().FullName;
 				}
@@ -284,7 +284,7 @@ namespace Quixo.Controls
 			{
 				var playerXDescription = ResetOptions.Human;
 
-				if (this.playerX != null)
+				if (this.playerX is not null)
 				{
 					playerXDescription = this.playerX.GetType().FullName;
 				}

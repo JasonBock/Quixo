@@ -13,17 +13,21 @@ public static class EngineTests
 		var goodEngine = new RandomEngine(writer);
 
 		var board = new Board();
-		Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
-		board.MovePiece(new Point(0, 0), new Point(0, 4));
-		Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
 
-		using var cancel = new ManualResetEvent(false);
-		var engineMove = goodEngine.GenerateMove(board, cancel);
+		Assert.Multiple(() =>
+		{
+			Assert.That(board.CurrentPlayer, Is.EqualTo(Player.X), "The starting player is invalid."); 
+			board.MovePiece(new Point(0, 0), new Point(0, 4));
+			Assert.That(board.CurrentPlayer, Is.EqualTo(Player.O), "The player before the generated move is invalid.");
 
-		Assert.AreEqual(Player.O, engineMove.Player, "The player after the generated move is invalid.");
-		board.MovePiece(engineMove.Source, engineMove.Destination);
+			using var cancel = new ManualResetEvent(false);
+			var engineMove = goodEngine.GenerateMove(board, cancel);
 
-		Assert.AreEqual(Player.X, board.CurrentPlayer, "The player after the generated move was performed is invalid.");
+			Assert.That(engineMove.Player, Is.EqualTo(Player.O), "The player after the generated move is invalid.");
+			board.MovePiece(engineMove.Source, engineMove.Destination);
+
+			Assert.That(board.CurrentPlayer, Is.EqualTo(Player.X), "The player after the generated move was performed is invalid.");
+		});
 	}
 
 	[Test]
@@ -33,13 +37,17 @@ public static class EngineTests
 		var badNullEngine = new BadNullTestEngine(writer);
 
 		var board = new Board();
-		Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
-		board.MovePiece(new Point(0, 0), new Point(0, 4));
-		Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
 
-		using var cancel = new ManualResetEvent(false);
-		var engineMove = badNullEngine.GenerateMove(board, cancel);
-		Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<NullReferenceException>());
+		Assert.Multiple(() =>
+		{
+			Assert.That(board.CurrentPlayer, Is.EqualTo(Player.X), "The starting player is invalid.");
+			board.MovePiece(new Point(0, 0), new Point(0, 4));
+			Assert.That(board.CurrentPlayer, Is.EqualTo(Player.O), "The player before the generated move is invalid.");
+
+			using var cancel = new ManualResetEvent(false);
+			var engineMove = badNullEngine.GenerateMove(board, cancel);
+			Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<NullReferenceException>());
+		});
 	}
 
 	[Test]
@@ -49,12 +57,16 @@ public static class EngineTests
 		var badMoveEngine = new BadMoveTestEngine(writer);
 
 		var board = new Board();
-		Assert.AreEqual(Player.X, board.CurrentPlayer, "The starting player is invalid.");
-		board.MovePiece(new Point(0, 0), new Point(0, 4));
-		Assert.AreEqual(Player.O, board.CurrentPlayer, "The player before the generated move is invalid.");
 
-		using var cancel = new ManualResetEvent(false);
-		var engineMove = badMoveEngine.GenerateMove(board, cancel);
-		Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<InvalidMoveException>());
+		Assert.Multiple(() =>
+		{
+			Assert.That(board.CurrentPlayer, Is.EqualTo(Player.X), "The starting player is invalid.");
+			board.MovePiece(new Point(0, 0), new Point(0, 4));
+			Assert.That(board.CurrentPlayer, Is.EqualTo(Player.O), "The player before the generated move is invalid.");
+
+			using var cancel = new ManualResetEvent(false);
+			var engineMove = badMoveEngine.GenerateMove(board, cancel);
+			Assert.That(() => board.MovePiece(engineMove.Source, engineMove.Destination), Throws.TypeOf<InvalidMoveException>());
+		});
 	}
 }

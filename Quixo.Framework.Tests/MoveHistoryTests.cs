@@ -3,7 +3,6 @@ using NUnit.Framework;
 
 namespace Quixo.Framework.Tests;
 
-[TestFixture]
 public static class MoveTests
 {
 	[Test]
@@ -18,32 +17,35 @@ public static class MoveTests
 
 		var history = board.Moves;
 
-		Assert.IsNotNull(history, "The move history is null.");
-		Assert.AreEqual(5, history.Count, "The history count is incorrect.");
+		Assert.Multiple(() =>
+		{
+			Assert.That(history, Is.Not.Null, "The move history is null.");
+			Assert.That(history.Count, Is.EqualTo(5), "The history count is incorrect.");
 
-		var move1 = history[0];
-		Assert.AreEqual(Player.X, move1.Player, "The player for move 1 is incorrect.");
-		Assert.AreEqual(new Point(0, 2), move1.Source, "The source point for move 1 is incorrect.");
-		Assert.AreEqual(new Point(4, 2), move1.Destination, "The destination point for move 1 is incorrect.");
+			var move1 = history[0];
+			Assert.That(move1.Player, Is.EqualTo(Player.X), "The player for move 1 is incorrect.");
+			Assert.That(move1.Source, Is.EqualTo(new Point(0, 2)), "The source point for move 1 is incorrect.");
+			Assert.That(move1.Destination, Is.EqualTo(new Point(4, 2)), "The destination point for move 1 is incorrect.");
 
-		var move2 = history[1];
-		Assert.AreEqual(Player.O, move2.Player, "The player for move 2 is incorrect.");
-		Assert.AreEqual(new Point(0, 1), move2.Source, "The source point for move 2 is incorrect.");
-		Assert.AreEqual(new Point(4, 1), move2.Destination, "The destination point for move 2 is incorrect.");
+			var move2 = history[1];
+			Assert.That(move2.Player, Is.EqualTo(Player.O), "The player for move 2 is incorrect.");
+			Assert.That(move2.Source, Is.EqualTo(new Point(0, 1)), "The source point for move 2 is incorrect.");
+			Assert.That(move2.Destination, Is.EqualTo(new Point(4, 1)), "The destination point for move 2 is incorrect.");
 
-		var move3 = history[2];
-		Assert.AreEqual(Player.X, move3.Player, "The player for move 3 is incorrect.");
-		Assert.AreEqual(new Point(2, 0), move3.Source, "The source point for move 3 is incorrect.");
-		Assert.AreEqual(new Point(2, 4), move3.Destination, "The destination point for move 3 is incorrect.");
+			var move3 = history[2];
+			Assert.That(move3.Player, Is.EqualTo(Player.X), "The player for move 3 is incorrect.");
+			Assert.That(move3.Source, Is.EqualTo(new Point(2, 0)), "The source point for move 3 is incorrect.");
+			Assert.That(move3.Destination, Is.EqualTo(new Point(2, 4)), "The destination point for move 3 is incorrect.");
 
-		var move4 = history[3];
-		Assert.AreEqual(Player.O, move4.Player, "The player for move 4 is incorrect.");
-		Assert.AreEqual(new Point(3, 4), move4.Source, "The source point for move 4 is incorrect.");
-		Assert.AreEqual(new Point(3, 0), move4.Destination, "The destination point for move 4 is incorrect.");
+			var move4 = history[3];
+			Assert.That(move4.Player, Is.EqualTo(Player.O), "The player for move 4 is incorrect.");
+			Assert.That(move4.Source, Is.EqualTo(new Point(3, 4)), "The source point for move 4 is incorrect.");
+			Assert.That(move4.Destination, Is.EqualTo(new Point(3, 0)), "The destination point for move 4 is incorrect.");
 
-		var move5 = history[4];
-		Assert.AreEqual(Player.X, move5.Player, "The player for move 5 is incorrect.");
-		Assert.AreEqual(new Point(1, 4), move5.Source, "The source point for move 5 is incorrect.");
-		Assert.AreEqual(new Point(4, 4), move5.Destination, "The destination point for move 5 is incorrect.");
+			var move5 = history[4];
+			Assert.That(move5.Player, Is.EqualTo(Player.X), "The player for move 5 is incorrect.");
+			Assert.That(move5.Source, Is.EqualTo(new Point(1, 4)), "The source point for move 5 is incorrect.");
+			Assert.That(move5.Destination, Is.EqualTo(new Point(4, 4)), "The destination point for move 5 is incorrect.");
+		});
 	}
 }

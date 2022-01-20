@@ -238,7 +238,7 @@ public sealed class Board
 
 		for (var sweep = startPoint; checkOp(sweep, endPoint); loopOp(ref sweep))
 		{
-			if (isXFixed == true)
+			if (isXFixed)
 			{
 				this.SetPiece(fixedValue, sweep,
 					this.GetPiece(fixedValue, nextPieceOp(sweep)));

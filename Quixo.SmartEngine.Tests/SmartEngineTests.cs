@@ -47,8 +47,11 @@ public static class SmartEngineTests
 		using var cancel = new ManualResetEvent(false);
 		var nextMove = engine.GenerateMove((Board)board.Clone(), cancel);
 
-		Assert.AreEqual(new Point(0, 1), nextMove.Source, "The source is invalid.");
-		Assert.AreEqual(new Point(4, 1), nextMove.Destination, "The destination is invalid.");
+		Assert.Multiple(() =>
+		{
+			Assert.That(nextMove.Source, Is.EqualTo(new Point(0, 1)), "The source is invalid.");
+			Assert.That(nextMove.Destination, Is.EqualTo(new Point(4, 1)), "The destination is invalid.");
+		});
 	}
 
 	[Test]
@@ -67,8 +70,11 @@ public static class SmartEngineTests
 		using var cancel = new ManualResetEvent(false);
 		var nextMove = engine.GenerateMove((Board)board.Clone(), cancel);
 
-		Assert.AreEqual(new Point(1, 4), nextMove.Source, "The source is invalid.");
-		Assert.AreEqual(new Point(1, 0), nextMove.Destination, "The destination is invalid.");
+		Assert.Multiple(() =>
+		{
+			Assert.That(nextMove.Source, Is.EqualTo(new Point(1, 4)), "The source is invalid.");
+			Assert.That(nextMove.Destination, Is.EqualTo(new Point(1, 0)), "The destination is invalid.");
+		});
 	}
 
 	[Test]
@@ -87,7 +93,7 @@ public static class SmartEngineTests
 		using var cancel = new ManualResetEvent(false);
 		var nextMove = engine.GenerateMove((Board)board.Clone(), cancel);
 
-		Assert.IsFalse((nextMove.Source == new Point(2, 0) && nextMove.Destination == new Point(2, 4)), "The next move is invalid.");
+		Assert.That((nextMove.Source == new Point(2, 0) && nextMove.Destination == new Point(2, 4)), Is.False, "The next move is invalid.");
 	}
 
 	[Test]
@@ -104,7 +110,7 @@ public static class SmartEngineTests
 		using var cancel = new ManualResetEvent(false);
 		var nextMove = engine.GenerateMove((Board)board.Clone(), cancel);
 
-		Assert.IsFalse((nextMove.Source == new Point(1, 0) && nextMove.Destination == new Point(0, 0)), "The next move is invalid.");
+		Assert.That((nextMove.Source == new Point(1, 0) && nextMove.Destination == new Point(0, 0)), Is.False, "The next move is invalid.");
 	}
 
 	[Test, Ignore("Working on it...")]
@@ -123,7 +129,7 @@ public static class SmartEngineTests
 		var nextMove = engine.GenerateMove((Board)board.Clone(), cancel);
 
 		// The problem is that ABP was doing 0,3 to 4,3 in 0.2.0.0, which causes a loss.
-		Assert.IsFalse((nextMove.Source == new Point(0, 3) && nextMove.Destination == new Point(4, 3)), "The next move is invalid.");
+		Assert.That((nextMove.Source == new Point(0, 3) && nextMove.Destination == new Point(4, 3)), Is.False, "The next move is invalid.");
 	}
 
 	[Test, Ignore("Working on it...")]

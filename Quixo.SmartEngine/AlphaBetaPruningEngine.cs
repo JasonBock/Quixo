@@ -33,7 +33,7 @@ public sealed class AlphaBetaPruningEngine
 					var possibleBestValue = this.MinimaxAB(nextMoveBoard, board.CurrentPlayer, false, 1,
 						int.MinValue, int.MaxValue);
 
-					if (possibleBestValue > bestValue || (possibleBestValue >= bestValue && generatedMove == null))
+					if (possibleBestValue > bestValue || (possibleBestValue >= bestValue && generatedMove is null))
 					{
 						bestValue = possibleBestValue;
 						generatedMove = new Move(board.CurrentPlayer, source, destination);
@@ -93,11 +93,11 @@ public sealed class AlphaBetaPruningEngine
 					{
 						break;
 					}
-					else if (isMax == false && nextEvaluation < beta)
+					else if (!isMax && nextEvaluation < beta)
 					{
 						beta = nextEvaluation;
 					}
-					else if (isMax == true && nextEvaluation > alpha)
+					else if (isMax && nextEvaluation > alpha)
 					{
 						alpha = nextEvaluation;
 					}
@@ -109,7 +109,7 @@ public sealed class AlphaBetaPruningEngine
 				}
 			}
 
-			if (isMax == true)
+			if (isMax)
 			{
 				evaluation = alpha;
 			}
@@ -252,11 +252,11 @@ public sealed class AlphaBetaPruningEngine
 			}
 		}
 
-		if (hasWinningLine == true && hasLosingLine == false)
+		if (hasWinningLine && !hasLosingLine)
 		{
 			horizontalEvaluation = WinningLine;
 		}
-		else if (hasLosingLine == true)
+		else if (hasLosingLine)
 		{
 			horizontalEvaluation = LosingLine;
 		}
@@ -329,11 +329,11 @@ public sealed class AlphaBetaPruningEngine
 			}
 		}
 
-		if (hasWinningLine == true && hasLosingLine == false)
+		if (hasWinningLine && !hasLosingLine)
 		{
 			verticalEvaluation = WinningLine;
 		}
-		else if (hasLosingLine == true)
+		else if (hasLosingLine)
 		{
 			verticalEvaluation = LosingLine;
 		}

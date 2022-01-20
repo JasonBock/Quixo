@@ -17,7 +17,7 @@ namespace Quixo.Framework;
 /// can be run into using other formatters.
 /// </remarks>
 public sealed class BoardFormatter
-	 : IFormatter
+	: IFormatter
 {
 	private ISurrogateSelector? selector;
 	private SerializationBinder? binder;
@@ -33,7 +33,7 @@ public sealed class BoardFormatter
 	/// <exception cref="SerializationException">Thrown if an error occurred during deserialization.</exception>
 	public object Deserialize(Stream serializationStream)
 	{
-		if (serializationStream == null) { throw new ArgumentNullException(nameof(serializationStream)); }
+		ArgumentNullException.ThrowIfNull(serializationStream);
 
 		var board = new Board();
 

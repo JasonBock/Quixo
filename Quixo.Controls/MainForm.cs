@@ -58,7 +58,7 @@ namespace Quixo.Controls
 		{
 			if (disposing)
 			{
-				if (this.components != null)
+				if (this.components is not null)
 				{
 					this.components.Dispose();
 				}
