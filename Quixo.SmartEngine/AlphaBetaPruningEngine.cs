@@ -1,30 +1,31 @@
 using Quixo.Engine;
-using System.IO;
-using System.Threading;
+using Quixo.Framework;
 
-namespace Quixo.SmartEngine
+namespace Quixo.SmartEngine;
+
+public sealed class AlphaBetaPruningEngine
+	: BaseEngine
 {
-   public sealed class AlphaBetaPruningEngine : BaseEngine
+	//  NOTE: This may need to be "configurable"...
+	private const int DepthLimit = 4;
+	private const int LosingLine = int.MinValue;
+	private const int WinningLine = int.MaxValue;
+
+	public AlphaBetaPruningEngine(TextWriter debugWriter)
+		: base(debugWriter) { }
+
+	public override Move GenerateMove(Board board, ManualResetEvent cancel)
 	{
-		//  NOTE: This may need to be "configurable"...
-		private const int DepthLimit = 4;
-		private const int LosingLine = int.MinValue;
-		private const int WinningLine = int.MaxValue;
+		ArgumentNullException.ThrowIfNull(board);
 
-		public AlphaBetaPruningEngine()
-			: base() { }
-
-		public AlphaBetaPruningEngine(TextWriter debugWriter)
-			: base(debugWriter) { }
-
-		public override Move GenerateMove(Board board, ManualResetEvent cancel)
+		(int, Move) GetGeneratedMove(Board board)
 		{
 			var bestValue = int.MinValue;
-			Move generatedMove = null;
+			Move? generatedMove = null;
 
-			foreach(var source in board.GetValidSourcePieces())
+			foreach (var source in board.GetValidSourcePieces())
 			{
-				foreach(var destination in board.GetValidDestinationPieces(source))
+				foreach (var destination in board.GetValidDestinationPieces(source))
 				{
 					var nextMoveBoard = ((Board)board.Clone());
 					nextMoveBoard.MovePiece(source, destination);
@@ -32,7 +33,7 @@ namespace Quixo.SmartEngine
 					var possibleBestValue = this.MinimaxAB(nextMoveBoard, board.CurrentPlayer, false, 1,
 						int.MinValue, int.MaxValue);
 
-					if(possibleBestValue > bestValue || (possibleBestValue >= bestValue && generatedMove == null))
+					if (possibleBestValue > bestValue || (possibleBestValue >= bestValue && generatedMove == null))
 					{
 						bestValue = possibleBestValue;
 						generatedMove = new Move(board.CurrentPlayer, source, destination);
@@ -40,344 +41,196 @@ namespace Quixo.SmartEngine
 				}
 			}
 
-			if(this.debugWriter != null)
-			{
-				this.debugWriter.WriteLine(
-					 string.Format("Best value for move {0}: {1} ", generatedMove.Print(), bestValue));
-				var nextMoveBoard = (Board)board.Clone();
-				nextMoveBoard.MovePiece(generatedMove.Source, generatedMove.Destination);
-
-				this.debugWriter.WriteLine(
-					 string.Format("Evaluation of board for move {0}: {1} ", generatedMove.Print(),
-					 this.Evaluate(nextMoveBoard, board.CurrentPlayer) * -1));
-			}
-
-			return generatedMove;
+			return (bestValue, generatedMove!);
 		}
 
-		private int MinimaxAB(Board board, Player currentPlayer, bool isMax, int depth, int alpha, int beta)
+		var (bestValue, generatedMove) = GetGeneratedMove(board);
+
+		if (this.DebugWriter is not null)
 		{
-			var evaluation = 0;
+			this.DebugWriter.WriteLine($"Best value for move {generatedMove.Print()}: {bestValue} ");
+			var nextMoveBoard = (Board)board.Clone();
+			nextMoveBoard.MovePiece(generatedMove.Source, generatedMove.Destination);
 
-			if(depth >= DepthLimit || board.WinningPlayer != Player.None)
+			this.DebugWriter.WriteLine($"Evaluation of board for move {generatedMove.Print()}: {AlphaBetaPruningEngine.Evaluate(nextMoveBoard, board.CurrentPlayer) * -1} ");
+		}
+
+		return generatedMove!;
+	}
+
+	private int MinimaxAB(Board board, Player currentPlayer, bool isMax, int depth, int alpha, int beta)
+	{
+		int evaluation;
+
+		if (depth >= DepthLimit || board.WinningPlayer != Player.None)
+		{
+			evaluation = AlphaBetaPruningEngine.Evaluate(board, currentPlayer);
+
+			if (board.CurrentPlayer != Player.None && board.CurrentPlayer != currentPlayer)
 			{
-				evaluation = this.Evaluate(board, currentPlayer);
-
-				if(board.CurrentPlayer != Player.None && board.CurrentPlayer != currentPlayer)
-				{
-					evaluation *= -1;
-				}
-				else if(board.CurrentPlayer == Player.None && board.WinningPlayer != currentPlayer)
-				{
-					evaluation *= -1;
-				}
+				evaluation *= -1;
 			}
-			else
+			else if (board.CurrentPlayer == Player.None && board.WinningPlayer != currentPlayer)
 			{
-				var nextEvaluation = 0;
+				evaluation *= -1;
+			}
+		}
+		else
+		{
+			int nextEvaluation;
 
-				foreach(var source in board.GetValidSourcePieces())
+			foreach (var source in board.GetValidSourcePieces())
+			{
+				foreach (var destination in board.GetValidDestinationPieces(source))
 				{
-					foreach(var destination in board.GetValidDestinationPieces(source))
-					{
-						var nextMoveBoard = (Board)board.Clone();
-						nextMoveBoard.MovePiece(source, destination);
+					var nextMoveBoard = (Board)board.Clone();
+					nextMoveBoard.MovePiece(source, destination);
 
-						var newDepth = depth;
-						nextEvaluation = this.MinimaxAB(nextMoveBoard, currentPlayer, !isMax, ++newDepth, alpha, beta);
+					var newDepth = depth;
+					nextEvaluation = this.MinimaxAB(nextMoveBoard, currentPlayer, !isMax, ++newDepth, alpha, beta);
 
-						if(alpha > beta)
-						{
-							break;
-						}
-						else if(isMax == false && nextEvaluation < beta)
-						{
-							beta = nextEvaluation;
-						}
-						else if(isMax == true && nextEvaluation > alpha)
-						{
-							alpha = nextEvaluation;
-						}
-					}
-
-					if(alpha > beta)
+					if (alpha > beta)
 					{
 						break;
 					}
+					else if (isMax == false && nextEvaluation < beta)
+					{
+						beta = nextEvaluation;
+					}
+					else if (isMax == true && nextEvaluation > alpha)
+					{
+						alpha = nextEvaluation;
+					}
 				}
 
-				if(isMax == true)
+				if (alpha > beta)
 				{
-					evaluation = alpha;
-				}
-				else
-				{
-					evaluation = beta;
+					break;
 				}
 			}
 
-			return evaluation;
-		}
-
-		private int Evaluate(Board board, Player currentPlayer)
-		{
-			int evaluation;
-			if (board.WinningPlayer != Player.None)
+			if (isMax == true)
 			{
-				if(board.WinningPlayer == currentPlayer)
-				{
-					evaluation = int.MaxValue;
-				}
-				else
-				{
-					evaluation = int.MinValue;
-				}
+				evaluation = alpha;
 			}
 			else
 			{
-				evaluation = this.Evaluate(board);
+				evaluation = beta;
 			}
-
-			return evaluation;
 		}
 
-		public int Evaluate(Board board)
+		return evaluation;
+	}
+
+	private static int Evaluate(Board board, Player currentPlayer)
+	{
+		int evaluation;
+		if (board.WinningPlayer != Player.None)
 		{
-			var evaluation = 0;
-
-			if(board.WinningPlayer != Player.None)
+			if (board.WinningPlayer == currentPlayer)
 			{
-				if(board.Moves.Count > 0)
-				{
-					var lastMove = board.Moves[board.Moves.Count - 1];
-
-					if(lastMove.Player == board.WinningPlayer)
-					{
-						evaluation = WinningLine;
-					}
-					else
-					{
-						evaluation = LosingLine;
-					}
-				}
+				evaluation = int.MaxValue;
 			}
 			else
 			{
-				evaluation = this.EvaluateHorizontalLines(board, evaluation);
-
-				if(evaluation != LosingLine && evaluation != WinningLine)
-				{
-					evaluation = this.EvaluateVerticalLines(board, evaluation);
-				}
-
-				if(evaluation != LosingLine && evaluation != WinningLine)
-				{
-					evaluation = this.EvaluateDiagonalLines(board, evaluation);
-				}
+				evaluation = int.MinValue;
 			}
-
-			return evaluation;
+		}
+		else
+		{
+			evaluation = AlphaBetaPruningEngine.Evaluate(board);
 		}
 
-		// TODO - this is wrong!
-		private int UpdateContinuation(int currentContinuationValue) =>
-			(currentContinuationValue ^ 2) * 4;
+		return evaluation;
+	}
 
-		private int EvaluateHorizontalLines(Board board, int evaluation)
+	private static int Evaluate(Board board)
+	{
+		ArgumentNullException.ThrowIfNull(board);
+		var evaluation = 0;
+
+		if (board.WinningPlayer != Player.None)
 		{
-			var horizontalEvaluation = evaluation;
-			bool hasWinningLine = false, hasLosingLine = false;
-
-			for(var y = 0; y < Board.Dimension; y++)
+			if (board.Moves.Count > 0)
 			{
-				var lineState = board.GetPiece(0, y);
+				var lastMove = board.Moves[^1];
 
-				if(lineState == board.CurrentPlayer)
+				if (lastMove.Player == board.WinningPlayer)
 				{
-					horizontalEvaluation++;
+					evaluation = WinningLine;
 				}
-				else if(lineState != Player.None)
+				else
 				{
-					horizontalEvaluation--;
-				}
-
-				var continuationFactor = 1;
-
-				for(var x = 1; x < Board.Dimension; x++)
-				{
-					var currentPiece = board.GetPiece(x, y);
-
-					if(currentPiece == board.CurrentPlayer)
-					{
-						horizontalEvaluation++;
-					}
-					else if(currentPiece != Player.None)
-					{
-						horizontalEvaluation--;
-					}
-
-					if(currentPiece == board.GetPiece(x - 1, y))
-					{
-						continuationFactor = this.UpdateContinuation(continuationFactor);
-
-						if(currentPiece == board.CurrentPlayer)
-						{
-							horizontalEvaluation += continuationFactor;
-						}
-						else if(currentPiece != Player.None)
-						{
-							horizontalEvaluation -= continuationFactor;
-						}
-					}
-					else
-					{
-						lineState = Player.None;
-						continuationFactor = 1;
-					}
-				}
-
-				if(lineState == board.CurrentPlayer)
-				{
-					hasWinningLine = true;
-					break;
-				}
-				else if(lineState != Player.None)
-				{
-					hasLosingLine = true;
-					break;
+					evaluation = LosingLine;
 				}
 			}
+		}
+		else
+		{
+			evaluation = AlphaBetaPruningEngine.EvaluateHorizontalLines(board, evaluation);
 
-			if(hasWinningLine == true && hasLosingLine == false)
+			if (evaluation != LosingLine && evaluation != WinningLine)
 			{
-				horizontalEvaluation = WinningLine;
-			}
-			else if(hasLosingLine == true)
-			{
-				horizontalEvaluation = LosingLine;
+				evaluation = AlphaBetaPruningEngine.EvaluateVerticalLines(board, evaluation);
 			}
 
-			return horizontalEvaluation;
+			if (evaluation != LosingLine && evaluation != WinningLine)
+			{
+				evaluation = AlphaBetaPruningEngine.EvaluateDiagonalLines(board, evaluation);
+			}
 		}
 
-		private int EvaluateVerticalLines(Board board, int evaluation)
+		return evaluation;
+	}
+
+	// TODO - this is wrong!
+	private static int UpdateContinuation(int currentContinuationValue) =>
+		(currentContinuationValue ^ 2) * 4;
+
+	private static int EvaluateHorizontalLines(Board board, int evaluation)
+	{
+		var horizontalEvaluation = evaluation;
+		bool hasWinningLine = false, hasLosingLine = false;
+
+		for (var y = 0; y < Board.Dimension; y++)
 		{
-			var verticalEvaluation = evaluation;
-			bool hasWinningLine = false, hasLosingLine = false;
+			var lineState = board.GetPiece(0, y);
 
-			for(var x = 0; x < Board.Dimension; x++)
+			if (lineState == board.CurrentPlayer)
 			{
-				var lineState = board.GetPiece(x, 0);
-
-				if(lineState == board.CurrentPlayer)
-				{
-					verticalEvaluation++;
-				}
-				else if(lineState != Player.None)
-				{
-					verticalEvaluation--;
-				}
-
-				var continuationFactor = 1;
-
-				for(var y = 1; y < Board.Dimension; y++)
-				{
-					var currentPiece = board.GetPiece(x, y);
-
-					if(currentPiece == board.CurrentPlayer)
-					{
-						verticalEvaluation++;
-					}
-					else if(currentPiece != Player.None)
-					{
-						verticalEvaluation--;
-					}
-
-					if(currentPiece == board.GetPiece(x, y - 1))
-					{
-						continuationFactor = this.UpdateContinuation(continuationFactor);
-
-						if(currentPiece == board.CurrentPlayer)
-						{
-							verticalEvaluation += continuationFactor;
-						}
-						else if(currentPiece != Player.None)
-						{
-							verticalEvaluation -= continuationFactor;
-						}
-					}
-					else
-					{
-						lineState = Player.None;
-						continuationFactor = 1;
-					}
-				}
-
-				if(lineState == board.CurrentPlayer)
-				{
-					hasWinningLine = true;
-					break;
-				}
-				else if(lineState != Player.None)
-				{
-					hasLosingLine = true;
-					break;
-				}
+				horizontalEvaluation++;
 			}
-
-			if(hasWinningLine == true && hasLosingLine == false)
+			else if (lineState != Player.None)
 			{
-				verticalEvaluation = WinningLine;
-			}
-			else if(hasLosingLine == true)
-			{
-				verticalEvaluation = LosingLine;
-			}
-
-			return verticalEvaluation;
-		}
-
-		private int EvaluateDiagonalLines(Board board, int evaluation)
-		{
-			var diagonalEvaluation = evaluation;
-
-			var lineState = board.GetPiece(0, 0);
-
-			if(lineState == board.CurrentPlayer)
-			{
-				diagonalEvaluation++;
-			}
-			else if(lineState != Player.None)
-			{
-				diagonalEvaluation--;
+				horizontalEvaluation--;
 			}
 
 			var continuationFactor = 1;
 
-			for(var x = 1; x < Board.Dimension; x++)
+			for (var x = 1; x < Board.Dimension; x++)
 			{
-				var currentPiece = board.GetPiece(x, x);
+				var currentPiece = board.GetPiece(x, y);
 
-				if(currentPiece == board.CurrentPlayer)
+				if (currentPiece == board.CurrentPlayer)
 				{
-					diagonalEvaluation++;
+					horizontalEvaluation++;
 				}
-				else if(currentPiece != Player.None)
+				else if (currentPiece != Player.None)
 				{
-					diagonalEvaluation--;
+					horizontalEvaluation--;
 				}
 
-				if(currentPiece == board.GetPiece(x - 1, x - 1))
+				if (currentPiece == board.GetPiece(x - 1, y))
 				{
-					continuationFactor = this.UpdateContinuation(continuationFactor);
+					continuationFactor = AlphaBetaPruningEngine.UpdateContinuation(continuationFactor);
 
-					if(currentPiece == board.CurrentPlayer)
+					if (currentPiece == board.CurrentPlayer)
 					{
-						diagonalEvaluation += continuationFactor;
+						horizontalEvaluation += continuationFactor;
 					}
-					else if(currentPiece != Player.None)
+					else if (currentPiece != Player.None)
 					{
-						diagonalEvaluation -= continuationFactor;
+						horizontalEvaluation -= continuationFactor;
 					}
 				}
 				else
@@ -387,74 +240,224 @@ namespace Quixo.SmartEngine
 				}
 			}
 
-			if(lineState != Player.None && lineState != board.CurrentPlayer)
+			if (lineState == board.CurrentPlayer)
 			{
-				diagonalEvaluation = LosingLine;
+				hasWinningLine = true;
+				break;
 			}
-			else
+			else if (lineState != Player.None)
 			{
-				if(lineState == board.CurrentPlayer)
+				hasLosingLine = true;
+				break;
+			}
+		}
+
+		if (hasWinningLine == true && hasLosingLine == false)
+		{
+			horizontalEvaluation = WinningLine;
+		}
+		else if (hasLosingLine == true)
+		{
+			horizontalEvaluation = LosingLine;
+		}
+
+		return horizontalEvaluation;
+	}
+
+	private static int EvaluateVerticalLines(Board board, int evaluation)
+	{
+		var verticalEvaluation = evaluation;
+		bool hasWinningLine = false, hasLosingLine = false;
+
+		for (var x = 0; x < Board.Dimension; x++)
+		{
+			var lineState = board.GetPiece(x, 0);
+
+			if (lineState == board.CurrentPlayer)
+			{
+				verticalEvaluation++;
+			}
+			else if (lineState != Player.None)
+			{
+				verticalEvaluation--;
+			}
+
+			var continuationFactor = 1;
+
+			for (var y = 1; y < Board.Dimension; y++)
+			{
+				var currentPiece = board.GetPiece(x, y);
+
+				if (currentPiece == board.CurrentPlayer)
 				{
-					diagonalEvaluation = WinningLine;
+					verticalEvaluation++;
+				}
+				else if (currentPiece != Player.None)
+				{
+					verticalEvaluation--;
+				}
+
+				if (currentPiece == board.GetPiece(x, y - 1))
+				{
+					continuationFactor = AlphaBetaPruningEngine.UpdateContinuation(continuationFactor);
+
+					if (currentPiece == board.CurrentPlayer)
+					{
+						verticalEvaluation += continuationFactor;
+					}
+					else if (currentPiece != Player.None)
+					{
+						verticalEvaluation -= continuationFactor;
+					}
 				}
 				else
 				{
-					lineState = board.GetPiece(0, Board.Dimension - 1);
+					lineState = Player.None;
+					continuationFactor = 1;
+				}
+			}
 
-					if(lineState == board.CurrentPlayer)
+			if (lineState == board.CurrentPlayer)
+			{
+				hasWinningLine = true;
+				break;
+			}
+			else if (lineState != Player.None)
+			{
+				hasLosingLine = true;
+				break;
+			}
+		}
+
+		if (hasWinningLine == true && hasLosingLine == false)
+		{
+			verticalEvaluation = WinningLine;
+		}
+		else if (hasLosingLine == true)
+		{
+			verticalEvaluation = LosingLine;
+		}
+
+		return verticalEvaluation;
+	}
+
+	private static int EvaluateDiagonalLines(Board board, int evaluation)
+	{
+		var diagonalEvaluation = evaluation;
+
+		var lineState = board.GetPiece(0, 0);
+
+		if (lineState == board.CurrentPlayer)
+		{
+			diagonalEvaluation++;
+		}
+		else if (lineState != Player.None)
+		{
+			diagonalEvaluation--;
+		}
+
+		var continuationFactor = 1;
+
+		for (var x = 1; x < Board.Dimension; x++)
+		{
+			var currentPiece = board.GetPiece(x, x);
+
+			if (currentPiece == board.CurrentPlayer)
+			{
+				diagonalEvaluation++;
+			}
+			else if (currentPiece != Player.None)
+			{
+				diagonalEvaluation--;
+			}
+
+			if (currentPiece == board.GetPiece(x - 1, x - 1))
+			{
+				continuationFactor = AlphaBetaPruningEngine.UpdateContinuation(continuationFactor);
+
+				if (currentPiece == board.CurrentPlayer)
+				{
+					diagonalEvaluation += continuationFactor;
+				}
+				else if (currentPiece != Player.None)
+				{
+					diagonalEvaluation -= continuationFactor;
+				}
+			}
+			else
+			{
+				lineState = Player.None;
+				continuationFactor = 1;
+			}
+		}
+
+		if (lineState != Player.None && lineState != board.CurrentPlayer)
+		{
+			diagonalEvaluation = LosingLine;
+		}
+		else
+		{
+			if (lineState == board.CurrentPlayer)
+			{
+				diagonalEvaluation = WinningLine;
+			}
+			else
+			{
+				lineState = board.GetPiece(0, Board.Dimension - 1);
+
+				if (lineState == board.CurrentPlayer)
+				{
+					diagonalEvaluation++;
+				}
+				else if (lineState != Player.None)
+				{
+					diagonalEvaluation--;
+				}
+
+				for (var x = 1; x < Board.Dimension; x++)
+				{
+					var currentPiece = board.GetPiece(x, Board.Dimension - 1 - x);
+
+					if (currentPiece == board.CurrentPlayer)
 					{
 						diagonalEvaluation++;
 					}
-					else if(lineState != Player.None)
+					else if (currentPiece != Player.None)
 					{
 						diagonalEvaluation--;
 					}
 
-					for(var x = 1; x < Board.Dimension; x++)
+					if (currentPiece == board.GetPiece(x - 1, Board.Dimension - x))
 					{
-						var currentPiece = board.GetPiece(x, Board.Dimension - 1 - x);
+						continuationFactor = AlphaBetaPruningEngine.UpdateContinuation(continuationFactor);
 
-						if(currentPiece == board.CurrentPlayer)
+						if (currentPiece == board.CurrentPlayer)
 						{
-							diagonalEvaluation++;
+							diagonalEvaluation += continuationFactor;
 						}
-						else if(currentPiece != Player.None)
+						else if (currentPiece != Player.None)
 						{
-							diagonalEvaluation--;
-						}
-
-						if(currentPiece == board.GetPiece(x - 1, Board.Dimension - x))
-						{
-							continuationFactor = this.UpdateContinuation(continuationFactor);
-
-							if(currentPiece == board.CurrentPlayer)
-							{
-								diagonalEvaluation += continuationFactor;
-							}
-							else if(currentPiece != Player.None)
-							{
-								diagonalEvaluation -= continuationFactor;
-							}
-						}
-						else
-						{
-							lineState = Player.None;
-							continuationFactor = 1;
+							diagonalEvaluation -= continuationFactor;
 						}
 					}
-
-					if(lineState == board.CurrentPlayer)
+					else
 					{
-						diagonalEvaluation = WinningLine;
-					}
-					else if(lineState != Player.None)
-					{
-						diagonalEvaluation = LosingLine;
+						lineState = Player.None;
+						continuationFactor = 1;
 					}
 				}
-			}
 
-			return diagonalEvaluation;
+				if (lineState == board.CurrentPlayer)
+				{
+					diagonalEvaluation = WinningLine;
+				}
+				else if (lineState != Player.None)
+				{
+					diagonalEvaluation = LosingLine;
+				}
+			}
 		}
+
+		return diagonalEvaluation;
 	}
 }

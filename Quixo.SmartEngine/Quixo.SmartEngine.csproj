@@ -1,18 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AssemblyTitle>Quixo.Framework</AssemblyTitle>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
-    <Company>jasonbock.net</Company>
-    <Authors>Jason Bock</Authors>
-    <Copyright>Copyright 2018</Copyright>
-    <Description>Defines interfaces and handlers to use engines in a game.</Description>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Quixo.Engine\Quixo.Engine.csproj" />
-    <ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<AssemblyTitle>Quixo.Framework</AssemblyTitle>
+		<Description>Defines interfaces and handlers to use engines in a game.</Description>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Quixo.Engine\Quixo.Engine.csproj" />
+		<ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />
+	</ItemGroup>
 </Project>
