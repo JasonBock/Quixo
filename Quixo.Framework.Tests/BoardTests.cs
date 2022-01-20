@@ -1,10 +1,9 @@
-using System;
 using System.Drawing;
 using NUnit.Framework;
 
 namespace Quixo.Framework.Tests
 {
-	[TestFixture]
+   [TestFixture]
 	public static class BoardTests
 	{
 		[Test]
@@ -63,7 +62,7 @@ namespace Quixo.Framework.Tests
 
 		[Test]
 		public static void RequestPieceAtInvalidPosition() => 
-			Assert.Throws<IndexOutOfRangeException>(() => new Board().GetPiece(new Point(24, -16)));
+			Assert.Throws<ArgumentOutOfRangeException>(() => new Board().GetPiece(new Point(24, -16)));
 
 		[Test]
 		public static void MakeOutOfTurnMove()

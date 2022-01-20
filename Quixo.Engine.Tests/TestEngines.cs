@@ -1,10 +1,9 @@
 using System.Drawing;
 using System.Threading;
-using Quixo.Framework;
 
 namespace Quixo.Engine.Tests
 {
-	public class BadNullTestEngine
+   public class BadNullTestEngine
 		: BaseEngine
 	{
 		public override Move GenerateMove(Board board, ManualResetEvent cancel) => null;

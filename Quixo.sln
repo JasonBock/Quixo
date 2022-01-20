@@ -1,27 +1,31 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83A5F16C-8623-46F8-BA91-8850C4CD8CBB}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		LICENSE.md = LICENSE.md
 		Notes.txt = Notes.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo.Framework", "Quixo.Framework\Quixo.Framework.csproj", "{5C52A24D-5062-4160-9B00-C696DF6B3734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Framework", "Quixo.Framework\Quixo.Framework.csproj", "{5C52A24D-5062-4160-9B00-C696DF6B3734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo.Framework.Tests", "Quixo.Framework.Tests\Quixo.Framework.Tests.csproj", "{A7BBA197-F77A-4DC6-863C-9A2853DE242E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Framework.Tests", "Quixo.Framework.Tests\Quixo.Framework.Tests.csproj", "{A7BBA197-F77A-4DC6-863C-9A2853DE242E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo.Controls", "Quixo.Controls\Quixo.Controls.csproj", "{506B921A-F277-4B24-9EE3-98203696BC03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Controls", "Quixo.Controls\Quixo.Controls.csproj", "{506B921A-F277-4B24-9EE3-98203696BC03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo", "Quixo\Quixo.csproj", "{52C177B6-83DB-412D-A709-04F0EEBA8DE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo", "Quixo\Quixo.csproj", "{52C177B6-83DB-412D-A709-04F0EEBA8DE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo.Engine", "Quixo.Engine\Quixo.Engine.csproj", "{378EF77C-CE6E-4079-A632-4BFF694054D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Engine", "Quixo.Engine\Quixo.Engine.csproj", "{378EF77C-CE6E-4079-A632-4BFF694054D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo.Engine.Tests", "Quixo.Engine.Tests\Quixo.Engine.Tests.csproj", "{A7E3353C-C0C7-4CD7-AD12-0F0F2D041C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Engine.Tests", "Quixo.Engine.Tests\Quixo.Engine.Tests.csproj", "{A7E3353C-C0C7-4CD7-AD12-0F0F2D041C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo.SmartEngine", "Quixo.SmartEngine\Quixo.SmartEngine.csproj", "{2716DDD2-9540-4D38-A9E0-EC899094E7D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.SmartEngine", "Quixo.SmartEngine\Quixo.SmartEngine.csproj", "{2716DDD2-9540-4D38-A9E0-EC899094E7D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo.SmartEngine.Tests", "Quixo.SmartEngine.Tests\Quixo.SmartEngine.Tests.csproj", "{6E437B1F-552D-41F7-A261-D781F3BDDD21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.SmartEngine.Tests", "Quixo.SmartEngine.Tests\Quixo.SmartEngine.Tests.csproj", "{6E437B1F-552D-41F7-A261-D781F3BDDD21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,5 +68,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A7052CD-DC79-4508-B22D-BA6229599E69}
 	EndGlobalSection
 EndGlobal

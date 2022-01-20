@@ -2,11 +2,10 @@ using System;
 using System.Drawing;
 using System.Threading;
 using NUnit.Framework;
-using Quixo.Framework;
 
 namespace Quixo.Engine.Tests
 {
-	[TestFixture]
+   [TestFixture]
 	public static class EngineTests
 	{
 		[Test]

@@ -1,11 +1,10 @@
 using System;
 using System.IO;
 using System.Threading;
-using Quixo.Framework;
 
 namespace Quixo.Engine
 {
-	public abstract class BaseEngine
+   public abstract class BaseEngine
 		: IEngine
 	{
 		protected TextWriter debugWriter = null;

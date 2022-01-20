@@ -1,11 +1,10 @@
 using Quixo.Engine;
-using Quixo.Framework;
 using System.IO;
 using System.Threading;
 
 namespace Quixo.SmartEngine
 {
-	public sealed class AlphaBetaPruningEngine : BaseEngine
+   public sealed class AlphaBetaPruningEngine : BaseEngine
 	{
 		//  NOTE: This may need to be "configurable"...
 		private const int DepthLimit = 4;

@@ -1,47 +1,44 @@
-using System;
-using System.Collections.Generic;
 using System.Text;
 
-namespace Quixo.Framework
+namespace Quixo.Framework;
+
+/// <summary>
+/// A collection of <see cref="Move"/> objects.
+/// </summary>
+[Serializable]
+public class MoveCollection
+	: List<Move>, ICloneable
 {
 	/// <summary>
-	/// A collection of <see cref="Move"/> objects.
+	/// Initializes a new instance of the <see cref="MoveCollection"/> class
 	/// </summary>
-	[Serializable]
-	public class MoveCollection
-		: List<Move>, ICloneable
+	public MoveCollection() : base() { }
+
+	/// <summary>
+	/// Gets a printable version of the move history.
+	/// </summary>
+	/// <returns>The complete history of the game.</returns>
+	public string Print()
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="MoveCollection"/> class
-		/// </summary>
-		public MoveCollection() : base() { }
+		var history = new StringBuilder();
 
-		/// <summary>
-		/// Gets a printable version of the move history.
-		/// </summary>
-		/// <returns>The complete history of the game.</returns>
-		public string Print()
+		foreach (var moveHistory in this)
 		{
-			var history = new StringBuilder();
-
-			foreach (var moveHistory in this)
-			{
-				history.AppendLine(moveHistory.Print());
-			}
-
-			return history.ToString();
+			history.AppendLine(moveHistory.Print());
 		}
 
-		public object Clone()
+		return history.ToString();
+	}
+
+	public object Clone()
+	{
+		var moves = new MoveCollection();
+
+		foreach (var move in this)
 		{
-			var moves = new MoveCollection();
-
-			foreach (var move in this)
-			{
-				moves.Add(move);
-			}
-
-			return moves;
+			moves.Add(move);
 		}
+
+		return moves;
 	}
 }

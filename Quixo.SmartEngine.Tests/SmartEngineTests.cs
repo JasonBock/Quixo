@@ -3,11 +3,10 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using NUnit.Framework;
-using Quixo.Framework;
 
 namespace Quixo.SmartEngine.Tests
 {
-	[TestFixture]
+   [TestFixture]
 	public static class SmartEngineTests
 	{
 		[Test]

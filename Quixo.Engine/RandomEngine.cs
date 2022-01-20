@@ -1,11 +1,10 @@
 using System;
 using System.IO;
 using System.Threading;
-using Quixo.Framework;
 
 namespace Quixo.Engine
 {
-	public sealed class RandomEngine
+   public sealed class RandomEngine
 		: BaseEngine
 	{
 		public RandomEngine()
