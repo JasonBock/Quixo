@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.SmartEngine", "Quixo.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.SmartEngine.Tests", "Quixo.SmartEngine.Tests\Quixo.SmartEngine.Tests.csproj", "{6E437B1F-552D-41F7-A261-D781F3BDDD21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quixo", "Quixo\Quixo.csproj", "{F9676C06-D8FD-4D05-9FDF-4118CEDD35C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{6E437B1F-552D-41F7-A261-D781F3BDDD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E437B1F-552D-41F7-A261-D781F3BDDD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E437B1F-552D-41F7-A261-D781F3BDDD21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9676C06-D8FD-4D05-9FDF-4118CEDD35C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9676C06-D8FD-4D05-9FDF-4118CEDD35C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9676C06-D8FD-4D05-9FDF-4118CEDD35C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9676C06-D8FD-4D05-9FDF-4118CEDD35C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

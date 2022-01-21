@@ -1,26 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AssemblyTitle>Quixo.Framework</AssemblyTitle>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
-    <Company>jasonbock.net</Company>
-    <Authors>Jason Bock</Authors>
-    <Copyright>Copyright 2018</Copyright>
-    <Description>The Quixo game.</Description>
-    <ApplicationIcon />
-    <OutputType>WinExe</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
-    <StartupObject>Quixo.Entry</StartupObject>
-    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
-    <PublishSingleFile>true</PublishSingleFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />
-    <ProjectReference Include="..\Quixo.Controls\Quixo.Controls.csproj" />
-    <ProjectReference Include="..\Quixo.Engine\Quixo.Engine.csproj" />
-    <ProjectReference Include="..\Quixo.SmartEngine\Quixo.SmartEngine.csproj" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Quixo.Framework\Quixo.Framework.csproj" />
+		<ProjectReference Include="..\Quixo.Engine\Quixo.Engine.csproj" />
+		<ProjectReference Include="..\Quixo.SmartEngine\Quixo.SmartEngine.csproj" />
+	</ItemGroup>
 </Project>
