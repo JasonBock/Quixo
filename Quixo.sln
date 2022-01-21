@@ -15,10 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Framework", "Quixo.Fr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Framework.Tests", "Quixo.Framework.Tests\Quixo.Framework.Tests.csproj", "{A7BBA197-F77A-4DC6-863C-9A2853DE242E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Controls", "Quixo.Controls\Quixo.Controls.csproj", "{506B921A-F277-4B24-9EE3-98203696BC03}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo", "Quixo\Quixo.csproj", "{52C177B6-83DB-412D-A709-04F0EEBA8DE5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Engine", "Quixo.Engine\Quixo.Engine.csproj", "{378EF77C-CE6E-4079-A632-4BFF694054D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quixo.Engine.Tests", "Quixo.Engine.Tests\Quixo.Engine.Tests.csproj", "{A7E3353C-C0C7-4CD7-AD12-0F0F2D041C05}"
@@ -41,14 +37,6 @@ Global
 		{A7BBA197-F77A-4DC6-863C-9A2853DE242E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7BBA197-F77A-4DC6-863C-9A2853DE242E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7BBA197-F77A-4DC6-863C-9A2853DE242E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{506B921A-F277-4B24-9EE3-98203696BC03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{506B921A-F277-4B24-9EE3-98203696BC03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{506B921A-F277-4B24-9EE3-98203696BC03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{506B921A-F277-4B24-9EE3-98203696BC03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{52C177B6-83DB-412D-A709-04F0EEBA8DE5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{378EF77C-CE6E-4079-A632-4BFF694054D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{378EF77C-CE6E-4079-A632-4BFF694054D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{378EF77C-CE6E-4079-A632-4BFF694054D1}.Release|Any CPU.ActiveCfg = Release|Any CPU

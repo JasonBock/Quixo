@@ -16,13 +16,8 @@ namespace Quixo.Framework;
 /// using a text editor. It also removes versioning issues that
 /// can be run into using other formatters.
 /// </remarks>
-public sealed class BoardFormatter
-	: IFormatter
+public static class BoardFormatter
 {
-	private ISurrogateSelector? selector;
-	private SerializationBinder? binder;
-	private StreamingContext context;
-
 	/// <summary>
 	/// Returns a <see cref="Board"/> object based on the 
 	/// serialized data.
@@ -31,7 +26,7 @@ public sealed class BoardFormatter
 	/// <returns>A new <see cref="Board"/> object.</returns>
 	/// <exception cref="ArgumentNullException">Thrown if <paramref name="serializationStream"/> is <code>null</code>.</exception>
 	/// <exception cref="SerializationException">Thrown if an error occurred during deserialization.</exception>
-	public object Deserialize(Stream serializationStream)
+	public static Board Deserialize(Stream serializationStream)
 	{
 		ArgumentNullException.ThrowIfNull(serializationStream);
 
@@ -75,17 +70,14 @@ public sealed class BoardFormatter
 	/// Serializes the given <see cref="Board"/> into the stream.
 	/// </summary>
 	/// <param name="serializationStream">The stream to serialize the given <see cref="Board"/>.</param>
-	/// <param name="graph">A <see cref="Board"/> object to serialize.</param>
-	/// <exception cref="ArgumentNullException">Thrown if either <paramref name="serializationStream"/> or <paramref name="graph"/> are <code>null</code>.</exception>
-	/// <exception cref="ArgumentException">Thrown if <paramref name="graph"/> is not a <see cref="Board"/>.</exception>
-	public void Serialize(Stream serializationStream, object graph)
+	/// <param name="board">A <see cref="Board"/> object to serialize.</param>
+	/// <exception cref="ArgumentNullException">Thrown if either <paramref name="serializationStream"/> or <paramref name="board"/> are <code>null</code>.</exception>
+	/// <exception cref="ArgumentException">Thrown if <paramref name="board"/> is not a <see cref="Board"/>.</exception>
+	public static void Serialize(Stream serializationStream, Board board)
 	{
-		ArgumentNullException.ThrowIfNull(graph);
+		ArgumentNullException.ThrowIfNull(board);
 		ArgumentNullException.ThrowIfNull(serializationStream);
 
-		if (graph is not Board) { throw new ArgumentException("The given object must be a Board.", nameof(graph)); }
-
-		var board = (Board)graph;
 		var moves = new List<string>();
 
 		foreach (var move in board.Moves)
@@ -95,23 +87,5 @@ public sealed class BoardFormatter
 
 		using var writer = new StreamWriter(serializationStream);
 		writer.Write(string.Join("|", moves.ToArray()));
-	}
-
-	public SerializationBinder? Binder
-	{
-		get => this.binder;
-		set => this.binder = value;
-	}
-
-	public StreamingContext Context
-	{
-		get => this.context;
-		set => this.context = value;
-	}
-
-	public ISurrogateSelector? SurrogateSelector
-	{
-		get => this.selector;
-		set => this.selector = value;
 	}
 }

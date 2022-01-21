@@ -367,9 +367,14 @@ public sealed class Board
 		}
 	}
 
+	// TODO: I really don't know why CA1508 is firing here. How would it
+	// know that the conditional to (Dimension - 1) are always true? If {2, 3}
+	// was given, how would that be true??
+#pragma warning disable CA1508 // Avoid dead conditional code
 	private static bool IsOuterPiece(Point position) =>
-		position.X != 0 || position.X != (Dimension - 1) ||
-			position.Y != 0 || position.Y != (Dimension - 1);
+		position.X != 0 || position.X != (Board.Dimension - 1) ||
+			position.Y != 0 || position.Y != (Board.Dimension - 1);
+#pragma warning restore CA1508 // Avoid dead conditional code
 
 	public Player CurrentPlayer => this.currentPlayer;
 

@@ -1,18 +1,9 @@
 using NUnit.Framework;
 using Quixo.Framework;
 using System.Drawing;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Quixo.SmartEngine.Tests;
 
-// TODO: The .quixo files are saved with the binary formatter,
-// so I have to open them with BinaryFormatter. At some
-// **very near** point in the future, I'll have to open them, save them
-// using BoardFormatter, and then use that.
-
-#pragma warning disable CA2301 // This method is insecure
-#pragma warning disable CA2300 // Do not use insecure deserializer BinaryFormatter
-#pragma warning disable SYSLIB0011 // Type or member is obsolete
 public static class SmartEngineTests
 {
 	[Test]
@@ -20,8 +11,7 @@ public static class SmartEngineTests
 	{
 		using var stream = new FileStream(
 			Path.Combine(TestContext.CurrentContext.WorkDirectory, "ComputerAsOWillCrashOnNextMove.quixo"), FileMode.Open);
-		var formatter = new BinaryFormatter();
-		var board = (Board)formatter.Deserialize(stream);
+		var board = BoardFormatter.Deserialize(stream);
 
 		//  The next move used to cause a crash.
 		using var debugWriter = new StringWriter();
@@ -36,8 +26,7 @@ public static class SmartEngineTests
 	{
 		using var stream = new FileStream(
 			Path.Combine(TestContext.CurrentContext.WorkDirectory, "EngineDoesntPreventLoss.quixo"), FileMode.Open);
-		var formatter = new BinaryFormatter();
-		var board = (Board)formatter.Deserialize(stream);
+		var board = BoardFormatter.Deserialize(stream);
 
 		board.Undo(4);
 
@@ -59,8 +48,7 @@ public static class SmartEngineTests
 	{
 		using var stream = new FileStream(
 			Path.Combine(TestContext.CurrentContext.WorkDirectory, "HereEngineMissedWinningMove.quixo"), FileMode.Open);
-		var formatter = new BinaryFormatter();
-		var board = (Board)formatter.Deserialize(stream);
+		var board = BoardFormatter.Deserialize(stream);
 
 		board.Undo();
 
@@ -82,8 +70,8 @@ public static class SmartEngineTests
 	{
 		using var stream = new FileStream(
 			Path.Combine(TestContext.CurrentContext.WorkDirectory, "BadMove0.2.0.2.quixo"), FileMode.Open);
-		var formatter = new BinaryFormatter();
-		var board = (Board)formatter.Deserialize(stream);
+		var board = BoardFormatter.Deserialize(stream);
+
 		board.Undo(2);
 
 		// For some reason, 0.2.0.2 thinks that every next move is a losing move... :S
@@ -101,8 +89,8 @@ public static class SmartEngineTests
 	{
 		using var stream = new FileStream(
 			Path.Combine(TestContext.CurrentContext.WorkDirectory, "BadMove0.2.0.1.quixo"), FileMode.Open);
-		var formatter = new BinaryFormatter();
-		var board = (Board)formatter.Deserialize(stream);
+		var board = BoardFormatter.Deserialize(stream);
+
 		board.Undo(2);
 
 		using var debugWriter = new StringWriter();
@@ -147,6 +135,3 @@ public static class SmartEngineTests
 	{
 	}
 }
-#pragma warning restore SYSLIB0011 // Type or member is obsolete
-#pragma warning restore CA2300 // Do not use insecure deserializer BinaryFormatter
-#pragma warning restore CA2301 // This method is insecure

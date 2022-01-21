@@ -20,19 +20,7 @@
 		<None Update="ComputerAsOWillCrashOnNextMove.quixo">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="DidNotTryToMake4InARow.quixo">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
 		<None Update="EngineDoesntPreventLoss.quixo">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="EngineDoesntPreventLoss2.quixo">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="EngineMissesOpponentWin.quixo">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="EngineWithXMakesA2By2Corner.quixo">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="HereEngineMissedWinningMove.quixo">
