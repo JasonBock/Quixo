@@ -1,4 +1,3 @@
-using System.Drawing;
 using NUnit.Framework;
 
 namespace Quixo.Framework.Tests;

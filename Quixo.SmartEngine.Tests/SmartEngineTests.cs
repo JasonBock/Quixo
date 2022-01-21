@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using Quixo.Framework;
-using System.Drawing;
 
 namespace Quixo.SmartEngine.Tests;
 

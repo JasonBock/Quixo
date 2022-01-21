@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.Runtime.Serialization;
 using System.Text;
 using NUnit.Framework;

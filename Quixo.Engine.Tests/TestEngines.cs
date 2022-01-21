@@ -1,5 +1,4 @@
 using Quixo.Framework;
-using System.Drawing;
 
 namespace Quixo.Engine.Tests;
 
