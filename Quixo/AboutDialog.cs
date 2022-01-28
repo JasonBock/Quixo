@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace Quixo;
+﻿namespace Quixo;
 
 public partial class AboutDialog : Form
 {
-   public AboutDialog()
-   {
-	  InitializeComponent();
-   }
+	public AboutDialog() => this.InitializeComponent();
+
+	private void OnOkButtonClick(object? sender, EventArgs e) => this.Close();
 }

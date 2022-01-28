@@ -38,9 +38,10 @@
 			// 
 			this.versionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.versionLabel.Location = new System.Drawing.Point(12, 9);
+			this.versionLabel.Location = new System.Drawing.Point(18, 13);
+			this.versionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.versionLabel.Name = "versionLabel";
-			this.versionLabel.Size = new System.Drawing.Size(547, 34);
+			this.versionLabel.Size = new System.Drawing.Size(820, 50);
 			this.versionLabel.TabIndex = 1;
 			this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
@@ -48,9 +49,10 @@
 			// 
 			this.rulesLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.rulesLabel.Location = new System.Drawing.Point(12, 61);
+			this.rulesLabel.Location = new System.Drawing.Point(18, 90);
+			this.rulesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.rulesLabel.Name = "rulesLabel";
-			this.rulesLabel.Size = new System.Drawing.Size(547, 34);
+			this.rulesLabel.Size = new System.Drawing.Size(820, 50);
 			this.rulesLabel.TabIndex = 3;
 			this.rulesLabel.Text = "Rules can be found at:";
 			this.rulesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -59,9 +61,10 @@
 			// 
 			this.rulesLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.rulesLinkLabel.Location = new System.Drawing.Point(12, 95);
+			this.rulesLinkLabel.Location = new System.Drawing.Point(18, 141);
+			this.rulesLinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.rulesLinkLabel.Name = "rulesLinkLabel";
-			this.rulesLinkLabel.Size = new System.Drawing.Size(547, 34);
+			this.rulesLinkLabel.Size = new System.Drawing.Size(820, 50);
 			this.rulesLinkLabel.TabIndex = 4;
 			this.rulesLinkLabel.TabStop = true;
 			this.rulesLinkLabel.Text = "http://www.gigamic.com/regles/anglais/rquixoe.htm";
@@ -70,24 +73,27 @@
 			// okButton
 			// 
 			this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.okButton.Location = new System.Drawing.Point(434, 172);
+			this.okButton.Location = new System.Drawing.Point(651, 255);
+			this.okButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.okButton.Name = "okButton";
-			this.okButton.Size = new System.Drawing.Size(125, 35);
+			this.okButton.Size = new System.Drawing.Size(188, 52);
 			this.okButton.TabIndex = 5;
 			this.okButton.Text = "&OK";
+			this.okButton.Click += new System.EventHandler(this.OnOkButtonClick);
 			// 
 			// AboutDialog
 			// 
 			this.AcceptButton = this.okButton;
-			this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 37F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(574, 219);
+			this.ClientSize = new System.Drawing.Size(861, 324);
 			this.ControlBox = false;
 			this.Controls.Add(this.okButton);
 			this.Controls.Add(this.rulesLinkLabel);
 			this.Controls.Add(this.rulesLabel);
 			this.Controls.Add(this.versionLabel);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "AboutDialog";
