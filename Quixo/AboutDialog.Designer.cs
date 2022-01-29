@@ -30,8 +30,8 @@
 	  {
 			this.versionLabel = new System.Windows.Forms.Label();
 			this.rulesLabel = new System.Windows.Forms.Label();
-			this.rulesLinkLabel = new System.Windows.Forms.LinkLabel();
 			this.okButton = new System.Windows.Forms.Button();
+			this.rulesLinkText = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// versionLabel
@@ -57,29 +57,29 @@
 			this.rulesLabel.Text = "Rules can be found at:";
 			this.rulesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// rulesLinkLabel
-			// 
-			this.rulesLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.rulesLinkLabel.Location = new System.Drawing.Point(18, 141);
-			this.rulesLinkLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-			this.rulesLinkLabel.Name = "rulesLinkLabel";
-			this.rulesLinkLabel.Size = new System.Drawing.Size(820, 50);
-			this.rulesLinkLabel.TabIndex = 4;
-			this.rulesLinkLabel.TabStop = true;
-			this.rulesLinkLabel.Text = "http://www.gigamic.com/regles/anglais/rquixoe.htm";
-			this.rulesLinkLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			// 
 			// okButton
 			// 
 			this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.okButton.Location = new System.Drawing.Point(651, 255);
-			this.okButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.okButton.Margin = new System.Windows.Forms.Padding(4);
 			this.okButton.Name = "okButton";
 			this.okButton.Size = new System.Drawing.Size(188, 52);
 			this.okButton.TabIndex = 5;
 			this.okButton.Text = "&OK";
 			this.okButton.Click += new System.EventHandler(this.OnOkButtonClick);
+			// 
+			// rulesLinkText
+			// 
+			this.rulesLinkText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.rulesLinkText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.rulesLinkText.Location = new System.Drawing.Point(18, 163);
+			this.rulesLinkText.Name = "rulesLinkText";
+			this.rulesLinkText.ReadOnly = true;
+			this.rulesLinkText.Size = new System.Drawing.Size(820, 36);
+			this.rulesLinkText.TabIndex = 6;
+			this.rulesLinkText.Text = "https://en.gigamic.com/game/quixo";
+			this.rulesLinkText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
 			// 
 			// AboutDialog
 			// 
@@ -88,18 +88,19 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(861, 324);
 			this.ControlBox = false;
+			this.Controls.Add(this.rulesLinkText);
 			this.Controls.Add(this.okButton);
-			this.Controls.Add(this.rulesLinkLabel);
 			this.Controls.Add(this.rulesLabel);
 			this.Controls.Add(this.versionLabel);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "AboutDialog";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "About Quixo .NET";
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 	  }
 
@@ -107,7 +108,7 @@
 
 	  private Label versionLabel;
 	  private Label rulesLabel;
-	  private LinkLabel rulesLinkLabel;
 	  private Button okButton;
+	  private TextBox rulesLinkText;
    }
 }

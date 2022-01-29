@@ -62,6 +62,7 @@
 			this.moveHistorySplitter = new System.Windows.Forms.Splitter();
 			this.boardPanel = new System.Windows.Forms.Panel();
 			this.board = new Quixo.Board();
+			this.undoToSelectedPointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gameStatisticsPanel.SuspendLayout();
 			this.mainMenuStrip.SuspendLayout();
 			this.debugPanel.SuspendLayout();
@@ -151,7 +152,8 @@
 			// gameToolStripMenuItem
 			// 
 			this.gameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetToolStripMenuItem});
+            this.resetToolStripMenuItem,
+            this.undoToSelectedPointToolStripMenuItem});
 			this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
 			this.gameToolStripMenuItem.Size = new System.Drawing.Size(109, 41);
 			this.gameToolStripMenuItem.Text = "&Game";
@@ -159,7 +161,7 @@
 			// resetToolStripMenuItem
 			// 
 			this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-			this.resetToolStripMenuItem.Size = new System.Drawing.Size(248, 48);
+			this.resetToolStripMenuItem.Size = new System.Drawing.Size(440, 48);
 			this.resetToolStripMenuItem.Text = "Reset...";
 			this.resetToolStripMenuItem.Click += new System.EventHandler(this.OnGameResetMenuItemClick);
 			// 
@@ -174,7 +176,7 @@
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(403, 48);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(258, 48);
 			this.aboutToolStripMenuItem.Text = "About...";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutMenuClick);
 			// 
@@ -323,23 +325,25 @@
 			// moveColumn
 			// 
 			this.moveColumn.Text = "Move";
+			this.moveColumn.Width = 80;
 			// 
 			// playerColumn
 			// 
 			this.playerColumn.Text = "Player";
 			this.playerColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+			this.playerColumn.Width = 80;
 			// 
 			// sourceColumn
 			// 
 			this.sourceColumn.Text = "Source";
 			this.sourceColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.sourceColumn.Width = 100;
+			this.sourceColumn.Width = 275;
 			// 
 			// destinationColumn
 			// 
 			this.destinationColumn.Text = "Destination";
 			this.destinationColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-			this.destinationColumn.Width = 100;
+			this.destinationColumn.Width = 275;
 			// 
 			// moveHistorySplitter
 			// 
@@ -368,6 +372,13 @@
 			this.board.Name = "board";
 			this.board.Size = new System.Drawing.Size(1341, 1021);
 			this.board.TabIndex = 0;
+			// 
+			// undoToSelectedPointToolStripMenuItem
+			// 
+			this.undoToSelectedPointToolStripMenuItem.Name = "undoToSelectedPointToolStripMenuItem";
+			this.undoToSelectedPointToolStripMenuItem.Size = new System.Drawing.Size(440, 48);
+			this.undoToSelectedPointToolStripMenuItem.Text = "Undo to Selected Point";
+			this.undoToSelectedPointToolStripMenuItem.Click += new System.EventHandler(this.OnUndoToPointContextMenuClick);
 			// 
 			// MainForm
 			// 
@@ -432,5 +443,6 @@
 		private ToolStripMenuItem resetToolStripMenuItem;
 		private ToolStripMenuItem helpToolStripMenuItem;
 		private ToolStripMenuItem aboutToolStripMenuItem;
-	}
+	  private ToolStripMenuItem undoToSelectedPointToolStripMenuItem;
+   }
 }
